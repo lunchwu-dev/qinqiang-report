@@ -2,31 +2,40 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>声震山河三千年——秦腔深度研究报告</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* ============================================
+     🖥️ 桌面端基础样式（>1024px）
+     ============================================ */
+  * { margin:0; padding:0; box-sizing: border-box; }
   body { font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; background: #faf6f0; color: #2c2c2c; line-height: 1.9; }
 
-  /* 顶部导航 */
+  /* 顶部导航（桌面端） */
   .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: linear-gradient(135deg, #8B0000, #600000); padding: 0 40px; height: 56px; display: flex; align-items: center; box-shadow: 0 3px 20px rgba(0,0,0,0.4); }
   .top-nav .nav-brand { color: #f5e6c8; font-size: 20px; font-weight: 900; letter-spacing: 3px; margin-right: 40px; white-space: nowrap; }
   .top-nav .nav-links { display: flex; gap: 6px; overflow-x: auto; flex: 1; }
   .top-nav .nav-links a { color: #f5e6c8; text-decoration: none; font-size: 13px; padding: 6px 12px; border-radius: 4px; white-space: nowrap; transition: all 0.3s; }
   .top-nav .nav-links a:hover { background: rgba(255,215,0,0.2); color: #FFD700; }
 
+  /* 移动端汉堡按钮（默认隐藏） */
+  .menu-toggle { display: none; background: none; border: none; color: #f5e6c8; font-size: 24px; cursor: pointer; padding: 8px; margin-left: auto; }
+
   /* 主布局 */
   .layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
 
-  /* 左侧章节导航 */
-  .side-nav { width: 260px; min-width: 260px; background: #2c2c2c; padding: 30px 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+  /* 左侧章节导航（桌面端） */
+  .side-nav { width: 260px; min-width: 260px; background: #2c2c2c; padding: 30px 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; transition: left 0.3s ease; }
   .side-nav .nav-title { color: #FFD700; font-size: 15px; font-weight: 700; padding: 0 24px 18px; border-bottom: 1px solid #444; margin-bottom: 12px; letter-spacing: 2px; }
   .side-nav a { display: block; color: #ccc; text-decoration: none; padding: 10px 24px; font-size: 14px; border-left: 3px solid transparent; transition: all 0.3s; }
   .side-nav a:hover, .side-nav a.active { color: #FFD700; border-left-color: #FFD700; background: rgba(255,215,0,0.05); }
 
+  /* 侧边栏遮罩（移动端用） */
+  .side-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+
   /* 主内容 */
   .main { flex: 1; max-width: 960px; margin: 0 auto; padding: 40px 48px; }
-  .main h1 { font-size: 32px; color: #8B0000; border-bottom: 3px solid #FFD700; padding-bottom: 16px; margin-bottom: 32px; }
+  .main h1 { font-size: 32px; color: #8B0000; border-bottom: 3px solid #FFD700; padding-bottom: 16px; margin-bottom: 32px; line-height: 1.4; }
   .main h2 { font-size: 26px; color: #8B0000; margin: 48px 0 20px; padding-left: 14px; border-left: 5px solid #FFD700; }
   .main h3 { font-size: 20px; color: #600000; margin: 28px 0 14px; }
   .main p { margin-bottom: 16px; text-indent: 2em; font-size: 16px; text-align: justify; }
@@ -96,24 +105,124 @@
   .footer a { color: #FFD700; }
 
   /* 返回顶部 */
-  .back-top { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: #8B0000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3); text-decoration: none; z-index: 999; }
+  .back-top { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: #8B0000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3); text-decoration: none; z-index: 999; transition: transform 0.2s; }
+  .back-top:hover { transform: scale(1.1); }
 
   /* 图片灯箱 */
   .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 10000; align-items: center; justify-content: center; cursor: zoom-out; }
   .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 80px rgba(255,215,0,0.2); }
   .lightbox:target { display: flex; }
 
-  @media (max-width: 1100px) {
-    .layout { flex-direction: column; }
-    .side-nav { width: 100%; min-width: auto; height: auto; position: relative; top: 0; display: flex; flex-wrap: wrap; padding: 12px 16px; gap: 6px; }
-    .side-nav .nav-title { display: none; }
-    .side-nav a { padding: 6px 12px; font-size: 13px; border-left: none; border-bottom: 2px solid transparent; }
-    .main { padding: 28px 20px; }
-    .person-card { flex-direction: column; align-items: center; }
-    .person-card .avatar { width: 100%; max-width: 300px; }
-    .person-card .avatar img { width: 100%; height: auto; }
-    .event-card .event-img { float: none; width: 100%; margin: 16px 0; }
-    .art-grid { grid-template-columns: 1fr; }
+  /* 移动端底部快速导航（默认隐藏） */
+  .mobile-bottom-nav { display: none; }
+
+  /* ============================================
+     📱 手机端适配（≤768px 竖屏）
+     ============================================ */
+  @media (max-width: 768px) {
+    /* 顶部导航：汉堡菜单 */
+    .top-nav { padding: 0 12px; height: 50px; }
+    .top-nav .nav-brand { font-size: 15px; letter-spacing: 1px; margin-right: 0; }
+    .top-nav .nav-links { display: none; }
+    .top-nav .nav-links.mobile-open { display: flex; position: fixed; top: 50px; left: 0; right: 0; background: linear-gradient(135deg, #8B0000, #600000); flex-direction: column; padding: 12px 16px 20px; gap: 4px; box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 999; max-height: calc(100vh - 50px); overflow-y: auto; }
+    .top-nav .nav-links.mobile-open a { font-size: 15px; padding: 10px 16px; border-radius: 6px; white-space: normal; }
+    .menu-toggle { display: block; }
+
+    /* 主布局：单列 */
+    .layout { flex-direction: column; margin-top: 50px; }
+
+    /* 侧边栏：变左侧抽屉 */
+    .side-nav { position: fixed; left: -280px; top: 0; width: 260px; height: 100vh; z-index: 1001; box-shadow: 4px 0 24px rgba(0,0,0,0.4); padding-top: 58px; }
+    .side-nav.mobile-open { left: 0; }
+    .side-overlay.active { display: block; }
+
+    /* 移动端底部快速导航 */
+    .mobile-bottom-nav { display: flex; position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, #1a1a1a, #2c2c2c); z-index: 998; padding: 6px 0 10px; box-shadow: 0 -2px 12px rgba(0,0,0,0.3); justify-content: space-around; }
+    .mobile-bottom-nav a { color: #aaa; text-decoration: none; font-size: 10px; text-align: center; padding: 4px 6px; border-radius: 6px; transition: all 0.2s; flex: 1; min-width: 0; }
+    .mobile-bottom-nav a:active, .mobile-bottom-nav a.active { color: #FFD700; background: rgba(255,215,0,0.1); }
+    .mobile-bottom-nav .nav-icon { font-size: 18px; display: block; margin-bottom: 2px; }
+
+    /* 主内容：全面缩进适配 */
+    .main { padding: 20px 14px 90px; max-width: 100%; }
+    .main h1 { font-size: 22px; padding-bottom: 12px; }
+    .main h1 span { font-size: 14px; }
+    .main h2 { font-size: 19px; margin: 32px 0 14px; padding-left: 10px; }
+    .main h3 { font-size: 16px; margin: 20px 0 10px; }
+    .main p { font-size: 14.5px; line-height: 1.85; text-indent: 1.2em; }
+    .main .source { font-size: 12px; padding: 5px 10px; }
+
+    /* 人物卡片：垂直堆叠 */
+    .person-card { flex-direction: column; align-items: center; padding: 18px 14px; gap: 14px; }
+    .person-card .avatar { width: 100%; max-width: 220px; }
+    .person-card .avatar img { width: 100%; height: auto; max-height: 280px; }
+    .person-card .name { font-size: 18px; text-align: center; }
+    .person-card .years { text-align: center; font-size: 13px; }
+    .person-card .bio { font-size: 14px; }
+    .person-card .bio p { text-indent: 1.2em; }
+
+    /* 事件卡片：图片全宽 */
+    .event-card { padding: 16px 12px; }
+    .event-card .event-title { font-size: 15px; line-height: 1.5; }
+    .event-card .event-content { font-size: 14px; }
+    .event-card .event-img { float: none; width: 100%; margin: 12px 0; }
+
+    /* 艺术特色：单列 */
+    .art-grid { grid-template-columns: 1fr; gap: 14px; }
+    .art-card { padding: 16px 14px; }
+    .art-card .art-name { font-size: 15px; }
+    .art-card .art-desc { font-size: 13.5px; }
+
+    /* 脸谱色系：缩小 */
+    .lianpu-chart { gap: 14px; }
+    .lianpu-circle { width: 56px; height: 56px; font-size: 16px; }
+    .lianpu-label { font-size: 11px; }
+
+    /* 引言块 */
+    .quote-block { padding: 18px 16px 18px 24px; font-size: 14.5px; line-height: 1.85; }
+    .quote-block::before { font-size: 32px; top: 4px; left: 8px; }
+    .quote-block::after { font-size: 32px; bottom: 4px; right: 8px; }
+
+    /* 时间线 */
+    .timeline { padding-left: 18px; }
+    .timeline .tl-item::before { left: -24px; width: 10px; height: 10px; }
+    .timeline .tl-year { font-size: 14px; }
+    .timeline .tl-text { font-size: 13.5px; }
+
+    /* 返回顶部：移到底部导航上方 */
+    .back-top { bottom: 62px; right: 14px; width: 42px; height: 42px; font-size: 18px; }
+
+    /* 页脚 */
+    .footer { padding: 24px 14px; font-size: 13px; margin-bottom: 56px; line-height: 1.8; }
+
+    /* 图片灯箱：移动端全屏 */
+    .lightbox img { max-width: 95vw; max-height: 85vh; }
+  }
+
+  /* ============================================
+     📲 小平板适配（769px ~ 1024px）
+     ============================================ */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .top-nav .nav-links { gap: 4px; }
+    .top-nav .nav-links a { font-size: 12px; padding: 5px 8px; }
+    .side-nav { width: 220px; min-width: 220px; }
+    .side-nav a { font-size: 13px; padding: 8px 16px; }
+    .main { padding: 32px 24px; }
+    .main h1 { font-size: 28px; }
+    .main h2 { font-size: 23px; }
+    .person-card .avatar { width: 160px; }
+    .person-card .avatar img { width: 160px; height: 210px; }
+    .art-grid { grid-template-columns: 1fr 1fr; }
+    .event-card .event-img { width: 220px; }
+    .menu-toggle { display: none; }
+  }
+
+  /* ============================================
+     🖥️ 大屏优化（≥1400px）
+     ============================================ */
+  @media (min-width: 1400px) {
+    .main { max-width: 1100px; padding: 48px 64px; }
+    .person-card .avatar { width: 220px; }
+    .person-card .avatar img { width: 220px; height: 280px; }
   }
 </style>
 </head>
@@ -122,7 +231,7 @@
 <!-- 顶部导航 -->
 <nav class="top-nav">
   <div class="nav-brand">🎭 秦腔深度研究</div>
-  <div class="nav-links">
+  <div class="nav-links" id="navLinks">
     <a href="#intro">引言</a>
     <a href="#history">历史渊源</a>
     <a href="#people">关键人物</a>
@@ -133,12 +242,16 @@
     <a href="#conclusion">结语</a>
     <a href="#sources">参考资料</a>
   </div>
+  <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
 </nav>
+
+<!-- 侧边栏遮罩（移动端点击关闭） -->
+<div class="side-overlay" id="sideOverlay"></div>
 
 <div class="layout">
 
 <!-- 左侧章节导航 -->
-<nav class="side-nav">
+<nav class="side-nav" id="sideNav">
   <div class="nav-title">章节导航</div>
   <a href="#intro">📖 引言——从《主角》走进秦腔</a>
   <a href="#history">📜 第一章 历史渊源——三千年声腔脉络</a>
@@ -354,7 +467,7 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%282%29.jpg" alt="易俗社剧场2020">
     </div>
     <div class="info">
-      <div class="name">陈彦（1959—　）</div>
+      <div class="name">陈彦（1959—  ）</div>
       <div class="years">作家、剧作家、中国作家协会副主席</div>
       <div class="bio">
         <p><span class="highlight">陈彦，陕西镇安人，</span>当代著名作家、剧作家。他的长篇小说《主角》（2018年出版）荣获第十届茅盾文学奖，并被改编为同名电视剧，成为近年来最具影响力的秦腔题材文艺作品。</p>
@@ -372,7 +485,7 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/%E7%A7%A6%E8%85%94%E6%81%8B6.jpg" alt="秦腔旦角表演">
     </div>
     <div class="info">
-      <div class="name">李梅（1968—　）</div>
+      <div class="name">李梅（1968—  ）</div>
       <div class="years">秦腔表演艺术家、二度"梅花奖"得主、"四大名旦"之首</div>
       <div class="bio">
         <p><span class="highlight">李梅，陕西扶风人，</span>国家一级演员，二度中国文化艺术政府奖·文华表演奖得主，二度中国戏剧梅花奖得主，三度上海白玉兰戏剧表演艺术奖主角奖得主。她是当代秦腔旦角艺术最具代表性的人物。</p>
@@ -390,7 +503,7 @@
       <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%282%29.jpg" alt="易俗社剧场2020">
     </div>
     <div class="info">
-      <div class="name">惠敏莉（1972—　）</div>
+      <div class="name">惠敏莉（1972—  ）</div>
       <div class="years">易俗社第十八任社长、秦腔表演艺术家</div>
       <div class="bio">
         <p><span class="highlight">惠敏莉，陕西黄陵人，</span>易俗社第十八任社长，也是易俗社历史上第一位女社长。她5岁受父亲熏陶学唱《三滴血》，11岁考入黄陵县戏校，在秦腔领域坚守了44年。</p>
@@ -406,7 +519,7 @@
 <!-- 第三章：历史事件 -->
 <section id="events">
   <h2>第三章 历史事件——转折时刻</h2>
-  <p>秦腔三千年历史中，有若干关键的历史事件，深刻地改变了这门艺术的走向。以下七个事件，是理解秦腔历史的关键节点。</p>
+  <p>秦腔三千年历史中，有若干关键的历史事件，深刻地改变了这门艺术的走向。以下八个事件，是理解秦腔历史的关键节点。</p>
 
   <div class="event-card">
     <div class="event-title">📜 事件一：《钵中莲》传奇——秦腔名称的最早记载（明万历年间，约1573-1620）</div>
@@ -451,7 +564,7 @@
 
   <div class="event-card">
     <div class="event-title">🎬 事件五：《血泪仇》面世——秦腔现代戏的里程碑（1943年）</div>
-    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg" alt="秦腔伴奏乐队1938">
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%94%E5%A5%8F191938.jpg" alt="秦腔伴奏乐队1938">
     <div class="event-content">
       <p>1943年，马健翎创作《血泪仇》，该剧以河南农民王仁厚一家在抗战时期的悲惨遭遇为主线，深刻揭露了国民党统治区的黑暗，歌颂了边区人民的幸福生活。</p>
       <p>毛泽东观看后给予高度评价，周扬称其为"边区戏剧运动的一面旗帜"。该剧至今仍是秦腔现代戏的代表作，全国各地剧团累计演出逾万场。</p>
@@ -501,7 +614,7 @@
       <div class="art-icon">🎵</div>
       <div class="art-name">声腔体系——苦音与欢音</div>
       <div class="art-desc">秦腔音乐的核心，是"苦音"（哭音）与"欢音"（花音）两大声腔体系。苦音以微升的Fa和微降的Si为特色，旋律悲壮苍凉，适合表现悲愤、怀念之情；欢音以La为主音，旋律欢快明朗，适合表现喜悦、轻松之情。这种"一剧两腔"的设计，使秦腔能够表现极为丰富的人物情感。<sup>[19]</sup></div>
-      <img class="art-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg" alt="秦腔乐队">
+      <img class="art-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%94%E5%A5%8F191938.jpg" alt="秦腔乐队">
     </div>
 
     <div class="art-card">
@@ -681,6 +794,19 @@
 </main>
 </div>
 
+<!-- 移动端底部导航 -->
+<nav class="mobile-bottom-nav" id="mobileBottomNav">
+  <a href="#intro"><span class="nav-icon">📖</span>引言</a>
+  <a href="#history"><span class="nav-icon">📜</span>历史</a>
+  <a href="#people"><span class="nav-icon">👥</span>人物</a>
+  <a href="#art"><span class="nav-icon">🎨</span>艺术</a>
+  <a href="#plays"><span class="nav-icon">🎭</span>剧目</a>
+  <a href="#inheritance"><span class="nav-icon">🌱</span>传承</a>
+</nav>
+
+<!-- 返回顶部 -->
+<a href="#" class="back-top" title="返回顶部" id="backTop">↑</a>
+
 <!-- 页脚 -->
 <div class="footer">
   <p>🎭 声震山河三千年——秦腔深度研究报告</p>
@@ -689,8 +815,87 @@
   <p style="margin-top:16px;font-size:12px;color:#777;">© 2026 秦腔深度研究报告 | 图片来源：Wikimedia Commons（公开版权）、各新闻网站</p>
 </div>
 
-<!-- 返回顶部 -->
-<a href="#" class="back-top" title="返回顶部">↑</a>
+<!-- 交互脚本 -->
+<script>
+  // 汉堡菜单切换
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  const sideNav = document.getElementById('sideNav');
+  const sideOverlay = document.getElementById('sideOverlay');
+
+  menuToggle.addEventListener('click', function() {
+    navLinks.classList.toggle('mobile-open');
+  });
+
+  // 点击遮罩关闭侧边栏
+  sideOverlay.addEventListener('click', function() {
+    sideNav.classList.remove('mobile-open');
+    sideOverlay.classList.remove('active');
+  });
+
+  // 移动端：侧边栏按钮（左下角添加侧边栏触发按钮）
+  function setupMobileSideNav() {
+    if (window.innerWidth <= 768) {
+      // 创建侧边栏打开按钮（如果不存在）
+      if (!document.getElementById('sideNavBtn')) {
+        const btn = document.createElement('button');
+        btn.id = 'sideNavBtn';
+        btn.innerHTML = '☰';
+        btn.style.cssText = 'position:fixed;top:58px;left:12px;z-index:997;background:#8B0000;color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.3);';
+        btn.addEventListener('click', function() {
+          sideNav.classList.toggle('mobile-open');
+          sideOverlay.classList.toggle('active');
+        });
+        document.body.appendChild(btn);
+      }
+      // 隐藏桌面端顶部导航链接（已用汉堡菜单代替）
+      navLinks.style.display = 'none';
+    } else {
+      // 桌面端：恢复显示
+      navLinks.style.display = 'flex';
+      sideNav.classList.remove('mobile-open');
+      sideOverlay.classList.remove('active');
+      const sideBtn = document.getElementById('sideNavBtn');
+      if (sideBtn) sideBtn.remove();
+    }
+  }
+
+  // 页面加载和窗口 resize 时设置
+  setupMobileSideNav();
+  window.addEventListener('resize', setupMobileSideNav);
+
+  // 点击导航链接后关闭移动菜单
+  document.querySelectorAll('.nav-links a, .side-nav a, .mobile-bottom-nav a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navLinks.classList.remove('mobile-open');
+    });
+  });
+
+  // 滚动时高亮当前章节
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPos = window.scrollY + 100;
+    sections.forEach(function(sec) {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      const id = sec.getAttribute('id');
+      if (scrollPos >= top && scrollPos < top + height) {
+        document.querySelectorAll('.side-nav a, .mobile-bottom-nav a').forEach(function(a) {
+          a.classList.remove('active');
+          if (a.getAttribute('href') === '#' + id) {
+            a.classList.add('active');
+          }
+        });
+      }
+    });
+  });
+
+  // 返回顶部平滑滚动
+  document.getElementById('backTop').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
 
 </body>
 </html>
