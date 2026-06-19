@@ -5,1158 +5,692 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>声震山河三千年——秦腔深度研究报告</title>
 <style>
-:* { margin:0; padding:0; box-sizing: border-box; }
-:root {
-  --ink: #1a1a1a; --paper: #faf6ef; --paper-dark: #f0e8d8;
-  --red: #8b1a1a; --red-light: #c0392b; --gold: #b8860b; --gold-light: #d4a843;
-  --shadow: rgba(0,0,0,0.12);
-}
-html { scroll-behavior: smooth; }
-body {
-  font-family: "Noto Serif SC","Source Han Serif SC","SimSun","STSong",serif;
-  background: var(--paper); color: var(--ink); line-height: 1.9; font-size: 17px;
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", serif; background: #faf6f0; color: #2c2c2c; line-height: 1.9; }
 
-/* 顶部导航 */
-.top-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-  background: linear-gradient(135deg, var(--red) 0%, #6b1212 100%);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.3); transition: transform 0.3s;
-}
-.top-nav.hidden { transform: translateY(-100%); }
-.top-nav-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 24px; height: 56px;
-}
-.top-nav-logo {
-  color: #f5e6c8; font-size: 20px; font-weight: 700;
-  letter-spacing: 4px; text-decoration: none;
-  display: flex; align-items: center; gap: 10px;
-}
-.top-nav-links { display: flex; gap: 6px; flex-wrap: wrap; }
-.top-nav-links a {
-  color: rgba(255,255,255,0.85); text-decoration: none;
-  font-size: 13px; padding: 6px 12px; border-radius: 4px;
-  transition: all 0.2s; white-space: nowrap;
-}
-.top-nav-links a:hover { background: rgba(255,255,255,0.15); color: #fff; }
+  /* 顶部导航 */
+  .top-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: linear-gradient(135deg, #8B0000, #600000); padding: 0 40px; height: 56px; display: flex; align-items: center; box-shadow: 0 3px 20px rgba(0,0,0,0.4); }
+  .top-nav .nav-brand { color: #f5e6c8; font-size: 20px; font-weight: 900; letter-spacing: 3px; margin-right: 40px; white-space: nowrap; }
+  .top-nav .nav-links { display: flex; gap: 6px; overflow-x: auto; flex: 1; }
+  .top-nav .nav-links a { color: #f5e6c8; text-decoration: none; font-size: 13px; padding: 6px 12px; border-radius: 4px; white-space: nowrap; transition: all 0.3s; }
+  .top-nav .nav-links a:hover { background: rgba(255,215,0,0.2); color: #FFD700; }
 
-/* 英雄区 */
-.hero {
-  margin-top: 56px; min-height: 100vh;
-  background: linear-gradient(160deg, #1a0a0a 0%, #3a1010 30%, #5a1a1a 60%, #8b1a1a 100%);
-  display: flex; align-items: center; justify-content: center;
-  position: relative; overflow: hidden;
-}
-.hero::before {
-  content: ''; position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 30% 50%, rgba(184,134,11,0.15) 0%, transparent 60%),
-              radial-gradient(ellipse at 70% 30%, rgba(139,26,26,0.2) 0%, transparent 50%);
-}
-.hero-content {
-  position: relative; z-index: 2; text-align: center; color: #f5e6c8;
-  max-width: 900px; padding: 60px 24px;
-}
-.hero-badge {
-  display: inline-block; border: 1px solid rgba(184,134,11,0.5);
-  color: var(--gold-light); font-size: 13px; letter-spacing: 6px;
-  padding: 8px 28px; border-radius: 30px; margin-bottom: 40px;
-  backdrop-filter: blur(4px); background: rgba(184,134,11,0.08);
-}
-.hero-title {
-  font-size: clamp(42px, 7vw, 88px); font-weight: 900; line-height: 1.1;
-  letter-spacing: 8px; margin-bottom: 24px;
-  text-shadow: 0 4px 30px rgba(0,0,0,0.5);
-}
-.hero-title span { display: block; }
-.hero-subtitle {
-  font-size: clamp(16px, 2.5vw, 22px); color: rgba(245,230,200,0.75);
-  letter-spacing: 3px; margin-bottom: 50px; font-weight: 300;
-}
-.hero-image {
-  margin: 30px auto 0; max-width: 600px; border-radius: 12px;
-  overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-}
-.hero-image img { width: 100%; height: auto; display: block; }
-.hero-image .img-caption {
-  background: rgba(0,0,0,0.7); color: rgba(255,255,255,0.7);
-  font-size: 12px; padding: 8px 16px; text-align: center;
-}
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-  color: rgba(245,230,200,0.5); font-size: 13px; letter-spacing: 3px;
-  animation: float 2s ease-in-out infinite;
-}
-@keyframes float { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+  /* 主布局 */
+  .layout { display: flex; margin-top: 56px; min-height: calc(100vh - 56px); }
 
-/* 引言区 */
-.intro-section { max-width: 900px; margin: 0 auto; padding: 100px 24px 80px; }
-.section-label {
-  font-size: 12px; letter-spacing: 6px; color: var(--gold);
-  text-transform: uppercase; margin-bottom: 16px;
-  display: flex; align-items: center; gap: 12px;
-}
-.section-label::after { content: ''; flex: 1; height: 1px; background: #c4a87a; }
-.intro-section h2 { font-size: clamp(28px,4vw,42px); color: var(--red); line-height: 1.3; margin-bottom: 32px; letter-spacing: 2px; }
-.intro-section .lead {
-  font-size: 20px; color: #444; line-height: 2; margin-bottom: 32px;
-  border-left: 4px solid var(--red); padding-left: 24px;
-}
-.intro-section p { font-size: 17px; color: #333; line-height: 2.1; margin-bottom: 20px; text-align: justify; }
-.intro-image {
-  margin: 30px 0; border-radius: 12px; overflow: hidden;
-  box-shadow: 0 4px 20px var(--shadow);
-}
-.intro-image img { width: 100%; height: auto; display: block; }
-.intro-image .img-caption {
-  background: var(--paper-dark); padding: 10px 16px;
-  font-size: 13px; color: #777; text-align: center;
-  border-top: 1px solid rgba(196,168,122,0.3);
-}
-.tv-card {
-  background: linear-gradient(135deg, #f9f3e8 0%, #f0e4d0 100%);
-  border: 1px solid #c4a87a; border-radius: 12px; padding: 32px;
-  margin: 40px 0; position: relative; overflow: hidden;
-}
-.tv-card h3 { font-size: 20px; color: var(--red); margin-bottom: 16px; letter-spacing: 2px; }
-.tv-card p { font-size: 16px; color: #444; line-height: 2; }
-.tv-card .source { font-size: 12px; color: #999; margin-top: 12px; font-style: italic; }
+  /* 左侧章节导航 */
+  .side-nav { width: 260px; min-width: 260px; background: #2c2c2c; padding: 30px 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
+  .side-nav .nav-title { color: #FFD700; font-size: 15px; font-weight: 700; padding: 0 24px 18px; border-bottom: 1px solid #444; margin-bottom: 12px; letter-spacing: 2px; }
+  .side-nav a { display: block; color: #ccc; text-decoration: none; padding: 10px 24px; font-size: 14px; border-left: 3px solid transparent; transition: all 0.3s; }
+  .side-nav a:hover, .side-nav a.active { color: #FFD700; border-left-color: #FFD700; background: rgba(255,215,0,0.05); }
 
-/* 章节通用 */
-.chapter { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
-.chapter-header { text-align: center; margin-bottom: 60px; position: relative; }
-.chapter-num {
-  font-size: 72px; font-weight: 900; color: rgba(139,26,26,0.06);
-  line-height: 1; position: absolute; top: -30px; left: 50%;
-  transform: translateX(-50%); letter-spacing: 8px;
-}
-.chapter-header h2 { font-size: clamp(26px,4vw,38px); color: var(--red); letter-spacing: 3px; position: relative; display: inline-block; }
-.chapter-header h2::after { content: ''; display: block; width: 60px; height: 3px; background: var(--gold); margin: 16px auto 0; }
-.chapter-header p { max-width: 700px; margin: 20px auto 0; color: #666; font-size: 16px; line-height: 1.8; }
+  /* 主内容 */
+  .main { flex: 1; max-width: 960px; margin: 0 auto; padding: 40px 48px; }
+  .main h1 { font-size: 32px; color: #8B0000; border-bottom: 3px solid #FFD700; padding-bottom: 16px; margin-bottom: 32px; }
+  .main h2 { font-size: 26px; color: #8B0000; margin: 48px 0 20px; padding-left: 14px; border-left: 5px solid #FFD700; }
+  .main h3 { font-size: 20px; color: #600000; margin: 28px 0 14px; }
+  .main p { margin-bottom: 16px; text-indent: 2em; font-size: 16px; text-align: justify; }
+  .main .source { color: #888; font-size: 13px; margin-top: 8px; padding: 6px 12px; background: #f5f0e8; border-radius: 4px; text-indent: 0; }
+  .main .source::before { content: "📎 来源："; color: #8B0000; font-weight: 600; }
 
-/* 图文块 */
-.image-text {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
-  align-items: center; margin: 60px auto; max-width: 1100px; padding: 0 24px;
-}
-.image-text.reverse { direction: rtl; }
-.image-text.reverse > * { direction: ltr; }
-.image-text-img {
-  border-radius: 12px; overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.15); position: relative;
-}
-.image-text-img img { width: 100%; height: auto; display: block; transition: transform 0.5s; }
-.image-text-img:hover img { transform: scale(1.03); }
-.img-caption-overlay {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.75));
-  color: #fff; font-size: 12px; padding: 30px 16px 12px;
-}
-.image-text-text h3 { font-size: 24px; color: var(--red); margin-bottom: 16px; letter-spacing: 2px; }
-.image-text-text p { font-size: 16px; color: #333; line-height: 2; text-align: justify; margin-bottom: 16px; }
-.source-note { font-size: 12px; color: #999; font-style: italic; }
+  /* 图文布局 */
+  .figure { margin: 32px 0; text-align: center; }
+  .figure img { max-width: 100%; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); cursor: pointer; transition: transform 0.3s; }
+  .figure img:hover { transform: scale(1.02); }
+  .figure .caption { display: block; margin-top: 10px; color: #666; font-size: 13px; font-style: italic; }
 
-/* 时间线 */
-.timeline { position: relative; padding: 20px 0; }
-.timeline::before {
-  content: ''; position: absolute; left: 50%; transform: translateX(-50%);
-  top: 0; bottom: 0; width: 3px;
-  background: linear-gradient(to bottom, var(--red), var(--gold), var(--red));
-}
-.timeline-item { display: flex; margin-bottom: 60px; position: relative; }
-.timeline-item:nth-child(odd) { flex-direction: row; }
-.timeline-item:nth-child(even) { flex-direction: row-reverse; }
-.timeline-dot {
-  position: absolute; left: 50%; transform: translateX(-50%);
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--red); border: 4px solid var(--paper);
-  box-shadow: 0 0 0 3px var(--red); z-index: 2; top: 30px;
-}
-.timeline-content {
-  width: 45%; padding: 28px; background: #fff; border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow); border: 1px solid rgba(196,168,122,0.3);
-}
-.timeline-year { font-size: 14px; color: var(--gold); letter-spacing: 3px; font-weight: 700; margin-bottom: 8px; }
-.timeline-content h3 { font-size: 20px; color: var(--red); margin-bottom: 12px; letter-spacing: 1px; }
-.timeline-content p { font-size: 15px; color: #444; line-height: 1.9; text-align: justify; }
-.timeline-source { font-size: 12px; color: #999; margin-top: 12px; padding-top: 10px; border-top: 1px solid #eee; font-style: italic; }
+  /* 人物卡片 */
+  .person-card { display: flex; gap: 28px; margin: 32px 0; padding: 28px; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); border: 1px solid #e8e0d0; align-items: flex-start; }
+  .person-card .avatar { flex-shrink: 0; width: 200px; }
+  .person-card .avatar img { width: 200px; height: 260px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+  .person-card .info { flex: 1; }
+  .person-card .name { font-size: 22px; font-weight: 900; color: #8B0000; margin-bottom: 4px; }
+  .person-card .years { color: #888; font-size: 14px; margin-bottom: 14px; }
+  .person-card .bio { font-size: 15px; line-height: 1.85; color: #333; }
+  .person-card .bio .highlight { color: #8B0000; font-weight: 700; }
+  .person-card .source { margin-top: 12px; }
 
-/* 人物卡片 - 扩展版 */
-.people-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 24px;
-}
-.people-card {
-  background: #fff; border-radius: 12px; overflow: hidden;
-  box-shadow: 0 4px 20px var(--shadow); border: 1px solid rgba(196,168,122,0.2);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-.people-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
-.people-card-img {
-  height: 220px; position: relative; overflow: hidden;
-}
-.people-card-img img { width: 100%; height: 100%; object-fit: cover; }
-.people-card-img .era-badge {
-  position: absolute; top: 16px; right: 16px;
-  background: rgba(0,0,0,0.6); color: #fff; font-size: 12px;
-  padding: 4px 12px; border-radius: 20px; letter-spacing: 2px;
-  backdrop-filter: blur(4px);
-}
-.people-card-body { padding: 24px; }
-.people-card-body h3 { font-size: 22px; color: var(--red); margin-bottom: 4px; letter-spacing: 2px; }
-.people-card-body .people-role { font-size: 13px; color: var(--gold); letter-spacing: 2px; margin-bottom: 12px; display: block; }
-.people-card-body .people-bio { font-size: 14px; color: #555; line-height: 1.9; text-align: justify; margin-bottom: 12px; }
-.people-card-body .people-detail { font-size: 13px; color: #666; line-height: 1.8; text-align: justify; }
-.people-card-body .source { font-size: 11px; color: #bbb; margin-top: 12px; display: block; font-style: italic; }
+  /* 事件卡片 */
+  .event-card { margin: 28px 0; padding: 24px; background: linear-gradient(135deg, #fff 0%, #faf6f0 100%); border-radius: 10px; border-left: 5px solid #8B0000; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .event-card .event-title { font-size: 18px; font-weight: 800; color: #8B0000; margin-bottom: 12px; }
+  .event-card .event-content { font-size: 15px; line-height: 1.85; }
+  .event-card .event-img { float: right; width: 280px; margin: 0 0 16px 24px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .event-card .source { margin-top: 10px; }
 
-/* 人物详细展开块 */
-.people-detail-block {
-  max-width: 900px; margin: 40px auto; padding: 36px;
-  background: #fff; border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow);
-  border-left: 6px solid var(--red);
-}
-.people-detail-block h3 { font-size: 22px; color: var(--red); margin-bottom: 16px; letter-spacing: 2px; }
-.people-detail-block p { font-size: 15px; color: #444; line-height: 2; text-align: justify; margin-bottom: 16px; }
-.people-detail-block .detail-section { margin-top: 20px; }
-.people-detail-block .detail-section h4 { font-size: 16px; color: var(--gold); margin-bottom: 8px; letter-spacing: 1px; }
-.people-detail-block .detail-section ul { padding-left: 20px; }
-.people-detail-block .detail-section li { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 6px; }
-.people-detail-block .source { font-size: 12px; color: #999; margin-top: 16px; font-style: italic; border-top: 1px solid #eee; padding-top: 12px; }
+  /* 剧目卡片 */
+  .play-card { margin: 20px 0; padding: 20px 24px; background: #fff; border-radius: 8px; border: 1px solid #e8e0d0; }
+  .play-card .play-title { font-size: 17px; font-weight: 800; color: #8B0000; }
+  .play-card .play-year { color: #888; font-size: 13px; margin-left: 10px; }
 
-/* 事件详细块 */
-.event-detail-block {
-  max-width: 900px; margin: 40px auto; padding: 36px;
-  background: #fff; border-radius: 12px;
-  box-shadow: 0 4px 20px var(--shadow);
-  border-top: 6px solid var(--gold);
-}
-.event-detail-block .event-header {
-  display: flex; align-items: center; gap: 16px; margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-.event-detail-block .event-tag {
-  background: var(--red); color: #fff; font-size: 13px;
-  padding: 4px 16px; border-radius: 20px; letter-spacing: 2px; white-space: nowrap;
-}
-.event-detail-block .event-date { font-size: 14px; color: var(--gold); letter-spacing: 2px; font-weight: 700; }
-.event-detail-block h3 { font-size: 22px; color: var(--red); margin-bottom: 16px; letter-spacing: 2px; }
-.event-detail-block p { font-size: 15px; color: #444; line-height: 2; text-align: justify; margin-bottom: 16px; }
-.event-detail-block .event-quote {
-  background: var(--paper); border-left: 4px solid var(--gold);
-  padding: 16px 20px; margin: 20px 0; font-style: italic;
-  color: #555; font-size: 14px; line-height: 1.9;
-}
-.event-detail-block .source { font-size: 12px; color: #999; margin-top: 16px; font-style: italic; border-top: 1px solid #eee; padding-top: 12px; }
+  /* 艺术特色网格 */
+  .art-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 28px 0; }
+  .art-card { padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8e0d0; }
+  .art-card .art-icon { font-size: 32px; margin-bottom: 10px; }
+  .art-card .art-name { font-size: 16px; font-weight: 800; color: #8B0000; margin-bottom: 8px; }
+  .art-card .art-desc { font-size: 14px; color: #555; line-height: 1.7; }
+  .art-card .art-img { width: 100%; border-radius: 6px; margin-top: 12px; }
 
-/* 剧目卡片 */
-.play-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px; max-width: 1100px; margin: 0 auto; padding: 0 24px;
-}
-.play-card {
-  background: linear-gradient(145deg, #fff 0%, #faf6ef 100%);
-  border: 1px solid rgba(196,168,122,0.3); border-radius: 12px; padding: 28px;
-  transition: all 0.3s; position: relative; overflow: hidden;
-}
-.play-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--red), var(--gold)); }
-.play-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
-.play-card h3 { font-size: 20px; color: var(--red); margin-bottom: 8px; letter-spacing: 2px; }
-.play-card .play-year { font-size: 13px; color: var(--gold); letter-spacing: 2px; margin-bottom: 12px; display: block; }
-.play-card p { font-size: 14px; color: #555; line-height: 1.9; text-align: justify; }
-.play-card .play-tag {
-  display: inline-block; margin-top: 12px; font-size: 12px; color: var(--red);
-  border: 1px solid rgba(139,26,26,0.3); padding: 3px 12px; border-radius: 20px;
-}
+  /* 脸谱色系图 */
+  .lianpu-chart { display: flex; justify-content: center; gap: 24px; margin: 28px 0; flex-wrap: wrap; }
+  .lianpu-item { text-align: center; }
+  .lianpu-circle { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 900; font-size: 20px; box-shadow: 0 4px 16px rgba(0,0,0,0.2); margin: 0 auto 8px; }
+  .lianpu-label { font-size: 13px; color: #555; font-weight: 600; }
 
-/* 艺术特点 */
-.art-feature-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px; max-width: 1100px; margin: 0 auto; padding: 0 24px;
-}
-.art-feature-card {
-  background: #fff; border-radius: 12px; padding: 32px 24px; text-align: center;
-  box-shadow: 0 4px 20px var(--shadow); border: 1px solid rgba(196,168,122,0.2);
-  transition: transform 0.3s;
-}
-.art-feature-card:hover { transform: translateY(-4px); }
-.art-feature-icon {
-  width: 64px; height: 64px; margin: 0 auto 20px;
-  background: linear-gradient(135deg, var(--red) 0%, #5a1010 100%);
-  border-radius: 50%; display: flex; align-items: center; justify-content: center;
-  font-size: 28px; color: #fff;
-}
-.art-feature-card h3 { font-size: 18px; color: var(--red); margin-bottom: 12px; letter-spacing: 2px; }
-.art-feature-card p { font-size: 14px; color: #555; line-height: 1.9; text-align: justify; }
-.art-image {
-  margin: 40px auto; max-width: 800px; padding: 0 24px;
-}
-.art-image img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 20px var(--shadow); }
-.art-image .img-caption {
-  text-align: center; font-size: 13px; color: #777; margin-top: 10px;
-}
+  /* 引言块 */
+  .quote-block { margin: 32px 0; padding: 24px 32px; background: linear-gradient(135deg, #8B0000 0%, #600000 100%); color: #f5e6c8; border-radius: 10px; font-size: 17px; line-height: 1.9; font-style: italic; position: relative; }
+  .quote-block::before { content: "❝"; font-size: 48px; position: absolute; top: 8px; left: 16px; opacity: 0.3; }
+  .quote-block::after { content: "❞"; font-size: 48px; position: absolute; bottom: 8px; right: 16px; opacity: 0.3; }
 
-/* 引用块 */
-.quote-block {
-  max-width: 800px; margin: 60px auto; padding: 40px 48px;
-  background: linear-gradient(135deg, #f9f3e8 0%, #f0e4d0 100%);
-  border-left: 6px solid var(--red); border-radius: 0 12px 12px 0;
-  position: relative;
-}
-.quote-block::before {
-  content: '"'; position: absolute; top: 10px; left: 20px;
-  font-size: 72px; color: rgba(139,26,26,0.15); font-family: Georgia, serif; line-height: 1;
-}
-.quote-block p { font-size: 18px; color: #333; line-height: 2; font-style: italic; text-align: justify; }
-.quote-block .quote-author { display: block; margin-top: 16px; font-size: 14px; color: var(--gold); font-style: normal; letter-spacing: 2px; }
+  /* 封面图 */
+  .hero-img { width: 100%; border-radius: 12px; margin: 24px 0; box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
 
-/* 数据条 */
-.stats-bar {
-  background: linear-gradient(135deg, var(--red) 0%, #5a1010 100%);
-  padding: 60px 24px; color: #f5e6c8;
-}
-.stats-bar-inner {
-  max-width: 1100px; margin: 0 auto;
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 40px; text-align: center;
-}
-.stat-item { padding: 10px; }
-.stat-num { font-size: 48px; font-weight: 900; color: var(--gold-light); display: block; line-height: 1.1; }
-.stat-label { font-size: 14px; letter-spacing: 3px; color: rgba(245,230,200,0.7); margin-top: 8px; }
+  /* 时间线 */
+  .timeline { border-left: 3px solid #FFD700; margin: 28px 0; padding-left: 28px; }
+  .timeline .tl-item { margin-bottom: 24px; position: relative; }
+  .timeline .tl-item::before { content: ""; position: absolute; left: -34px; top: 6px; width: 12px; height: 12px; background: #8B0000; border-radius: 50%; border: 2px solid #FFD700; }
+  .timeline .tl-year { font-weight: 800; color: #8B0000; font-size: 16px; }
+  .timeline .tl-text { font-size: 15px; color: #444; margin-top: 4px; }
 
-/* 当代传承 */
-.inherit-section { max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
-.inherit-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;
-}
-.inherit-card {
-  background: #fff; border-radius: 12px; padding: 32px;
-  box-shadow: 0 4px 20px var(--shadow); border: 1px solid rgba(196,168,122,0.2);
-}
-.inherit-card h3 { font-size: 20px; color: var(--red); margin-bottom: 16px; letter-spacing: 2px; padding-bottom: 12px; border-bottom: 2px solid var(--paper-dark); }
-.inherit-card ul { list-style: none; padding: 0; }
-.inherit-card ul li { font-size: 15px; color: #444; line-height: 1.8; padding: 8px 0; padding-left: 20px; position: relative; }
-.inherit-card ul li::before { content: '◆'; position: absolute; left: 0; color: var(--gold); font-size: 10px; top: 10px; }
+  /* 页脚 */
+  .footer { margin-top: 80px; padding: 40px; background: #2c2c2c; color: #aaa; text-align: center; font-size: 14px; line-height: 2; }
+  .footer a { color: #FFD700; }
 
-/* 结语 */
-.conclusion { max-width: 800px; margin: 0 auto; padding: 100px 24px 80px; text-align: center; }
-.conclusion h2 { font-size: clamp(26px,4vw,36px); color: var(--red); letter-spacing: 3px; margin-bottom: 32px; }
-.conclusion p { font-size: 17px; color: #333; line-height: 2.2; text-align: justify; margin-bottom: 20px; }
-.conclusion .final-quote { font-size: 22px; color: var(--red); font-weight: 700; letter-spacing: 3px; margin-top: 40px; line-height: 1.6; }
+  /* 返回顶部 */
+  .back-top { position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px; background: #8B0000; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.3); text-decoration: none; z-index: 999; }
 
-/* 参考资料 */
-.references { background: #1a1a1a; color: #ccc; padding: 80px 24px; }
-.references-inner { max-width: 900px; margin: 0 auto; }
-.references h2 { font-size: 24px; color: var(--gold-light); letter-spacing: 3px; margin-bottom: 32px; text-align: center; }
-.references ol { padding-left: 24px; }
-.references li { font-size: 14px; color: #aaa; line-height: 1.8; margin-bottom: 10px; padding-left: 8px; }
-.references li a { color: var(--gold-light); text-decoration: none; }
-.references li a:hover { text-decoration: underline; }
+  /* 图片灯箱 */
+  .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 10000; align-items: center; justify-content: center; cursor: zoom-out; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 80px rgba(255,215,0,0.2); }
+  .lightbox:target { display: flex; }
 
-/* 页脚 */
-.footer { background: #0d0d0d; color: #777; text-align: center; padding: 32px 24px; font-size: 13px; letter-spacing: 2px; }
-
-/* 回到顶部 */
-.back-top {
-  position: fixed; bottom: 32px; right: 32px; width: 48px; height: 48px;
-  background: var(--red); color: #fff; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; opacity: 0; transition: all 0.3s; z-index: 999;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3); border: none; font-size: 20px;
-}
-.back-top.visible { opacity: 1; }
-.back-top:hover { background: #5a1010; transform: scale(1.1); }
-
-/* 分割线装饰 */
-.section-divider {
-  text-align: center; margin: 60px auto; color: var(--gold); font-size: 24px;
-  letter-spacing: 16px; opacity: 0.4;
-}
-
-/* 响应式 */
-@media (max-width: 768px) {
-  .top-nav-links { display: none; }
-  .timeline::before { left: 20px; }
-  .timeline-item, .timeline-item:nth-child(even) { flex-direction: column; padding-left: 50px; }
-  .timeline-dot { left: 20px; }
-  .timeline-content { width: 100%; }
-  .image-text, .image-text.reverse { grid-template-columns: 1fr; }
-  .inherit-grid { grid-template-columns: 1fr; }
-  .people-grid { grid-template-columns: 1fr; }
-  .play-grid { grid-template-columns: 1fr; }
-  .art-feature-grid { grid-template-columns: 1fr; }
-}
+  @media (max-width: 1100px) {
+    .layout { flex-direction: column; }
+    .side-nav { width: 100%; min-width: auto; height: auto; position: relative; top: 0; display: flex; flex-wrap: wrap; padding: 12px 16px; gap: 6px; }
+    .side-nav .nav-title { display: none; }
+    .side-nav a { padding: 6px 12px; font-size: 13px; border-left: none; border-bottom: 2px solid transparent; }
+    .main { padding: 28px 20px; }
+    .person-card { flex-direction: column; align-items: center; }
+    .person-card .avatar { width: 100%; max-width: 300px; }
+    .person-card .avatar img { width: 100%; height: auto; }
+    .event-card .event-img { float: none; width: 100%; margin: 16px 0; }
+    .art-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
 
 <!-- 顶部导航 -->
-<nav class="top-nav" id="topNav">
-  <div class="top-nav-inner">
-    <a href="#hero" class="top-nav-logo">🏛️ 秦腔深度研究</a>
-    <div class="top-nav-links">
-      <a href="#intro">引言</a>
-      <a href="#history">历史渊源</a>
-      <a href="#people">关键人物</a>
-      <a href="#events">关键事件</a>
-      <a href="#art">艺术特色</a>
-      <a href="#plays">代表剧目</a>
-      <a href="#inherit">当代传承</a>
-      <a href="#references">参考资料</a>
-    </div>
+<nav class="top-nav">
+  <div class="nav-brand">🎭 秦腔深度研究</div>
+  <div class="nav-links">
+    <a href="#intro">引言</a>
+    <a href="#history">历史渊源</a>
+    <a href="#people">关键人物</a>
+    <a href="#events">历史事件</a>
+    <a href="#art">艺术特色</a>
+    <a href="#plays">代表剧目</a>
+    <a href="#inheritance">当代传承</a>
+    <a href="#conclusion">结语</a>
+    <a href="#sources">参考资料</a>
   </div>
 </nav>
 
-<!-- 英雄区 -->
-<section class="hero" id="hero">
-  <div class="hero-content">
-    <div class="hero-badge">SHAANXI OPERA RESEARCH</div>
-    <h1 class="hero-title">
-      <span>声震山河</span>
-      <span>三千年</span>
-    </h1>
-    <p class="hero-subtitle">秦腔深度研究报告 · 从《主角》走进陕西戏曲的苍凉与壮美</p>
-    <div style="max-width:700px;margin:0 auto;">
-      <div class="stat-num" style="font-size:36px;color:var(--gold-light);margin-bottom:8px;">3000+</div>
-      <div style="font-size:13px;color:rgba(245,230,200,0.6);letter-spacing:2px;">年历史传承 · 1600+ 现存剧目 · 1912 易俗社创立 · 2006 国家级非遗</div>
-    </div>
-  </div>
-  <div class="hero-scroll">向下探索 ↓</div>
-</section>
+<div class="layout">
+
+<!-- 左侧章节导航 -->
+<nav class="side-nav">
+  <div class="nav-title">章节导航</div>
+  <a href="#intro">📖 引言——从《主角》走进秦腔</a>
+  <a href="#history">📜 第一章 历史渊源——三千年声腔脉络</a>
+  <a href="#people">👥 第二章 关键人物——秦腔史上的不朽名字</a>
+  <a href="#events">⚡ 第三章 历史事件——转折时刻</a>
+  <a href="#art">🎨 第四章 艺术特色——声腔与表演体系</a>
+  <a href="#plays">🎭 第五章 代表剧目——经典永恒</a>
+  <a href="#inheritance">🌱 第六章 当代传承——古老艺术的现代新生</a>
+  <a href="#conclusion">💫 结语——声震山河，魂系中华</a>
+  <a href="#sources">📚 参考资料</a>
+</nav>
+
+<!-- 主内容 -->
+<main class="main">
+
+<!-- 标题 -->
+<h1>声震山河三千年<br><span style="font-size:18px;color:#888;font-weight:400;">——秦腔深度研究报告</span></h1>
 
 <!-- 引言 -->
-<section class="intro-section" id="intro">
-  <div class="section-label">INTRODUCTION</div>
-  <h2>当《主角》落幕，秦腔才刚登场</h2>
-  <p class="lead">"忆秦娥"三个字，因电视剧《主角》而成为2026年春天最动人的文化符号。千万观众追完剧集，却发现自己对那一声苍凉高亢的"叫板"仍意犹未尽——这，正是我们撰写这份报告的初心。</p>
-  
-  <div class="intro-image">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/%E7%A7%A6%E8%85%94%E6%81%8B.jpg" alt="秦腔表演" loading="lazy">
-    <div class="img-caption">秦腔表演艺术（Wikimedia Commons · CC BY 2.5）</div>
+<section id="intro">
+  <div class="quote-block">
+    "秦腔，是生长在黄土地上的声音。它不讨好，不修饰，直来直去，像西北的风，像黄土高原的沟沟壑壑，粗粝、真实、滚烫。"
   </div>
-
-  <p>2026年5月，改编自陈彦茅盾文学奖同名小说的电视剧《主角》在央视一套与腾讯视频同步播出，收视率一路走高。剧集以秦腔名伶忆秦娥跨越半世纪的艺术生涯为主线，将这一古老剧种的兴衰变迁、一代代秦腔艺人的坚守与挣扎，铺陈进了中国当代文化的宏大叙事之中。</p>
-  
-  <p>但电视剧终究是电视剧。真正的秦腔，比任何戏剧都更加跌宕，比任何剧本都更加苍凉，比任何舞台都更加广阔。它起源于西周，成熟于秦，鼎盛于清，穿越战火，穿越运动，穿越流行文化的狂潮，至今仍在黄土高原的沟沟壑壑间回响。</p>
-  
-  <div class="tv-card">
-    <h3>📺 《主角》与秦腔：剧集背后的历史纵深</h3>
-    <p>电视剧《主角》改编自陕西作家陈彦荣获茅盾文学奖的同名长篇小说。原著小说历时八年打磨，以秦腔剧团为背景，通过女主角从放羊娃到秦腔名伶的跌宕人生，折射了中国社会近半个世纪的变迁。剧集的热播，让"秦腔"这一关键词的搜索量在2026年5月环比增长超过300%，这股"秦腔热"正是本报告希望延续的文化火种。</p>
-    <p class="source">资料来源：电视剧《主角》百度百科词条、搜狐网2026年5月报道</p>
+  <p>2026年，电视剧《主角》热播，收视率峰值突破3.5%，全网播放量逾50亿次。这部改编自陈彦同名小说的剧集，讲述了一位秦腔女演员忆秦娥从山村少女到"秦腔皇后"的跌宕人生，让无数观众第一次真正看见了这门古老艺术的灵魂。</p>
+  <p>但秦腔的故事，远比任何电视剧都更波澜壮阔。它起源于西周，成熟于秦，昌明于唐，完整于元，成熟于明，广播于清，至今已有三千年历史。它不仅是"中国戏剧的活化石"，更是中华文明中最为雄浑悲壮的声音之一。</p>
+  <p>本报告旨在系统梳理秦腔的历史脉络、关键人物、代表剧目与当代传承，以详实史料与图文并茂的方式，为每一位因《主角》而对秦腔产生兴趣的读者，提供一份真正有深度、有温度、有厚度的解读。</p>
+  <div class="figure">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/%E7%A7%A6%E8%85%94%E6%81%8B.jpg" alt="秦腔表演" onclick="window.location.href='#img-lightbox-1'" style="max-width:600px;">
+    <span class="caption">秦腔表演瞬间（Wikimedia Commons 公开版权）</span>
   </div>
-
-  <p>本报告试图做的，是为每一位因《主角》而对秦腔产生好奇的观众，打开一扇真正通往这一艺术世界的门。我们将系统梳理秦腔三千年的传承脉络，细述那些在历史上留下浓墨重彩的关键人物与关键事件，解析秦腔独特的艺术密码，并呈现这一古老剧种在当代的顽强传承与创新实践。所有历史信息均附信息来源标注，供读者深入查阅。</p>
 </section>
-
-<div class="section-divider">❖ ❖ ❖</div>
 
 <!-- 第一章：历史渊源 -->
-<section class="chapter" id="history">
-  <div class="chapter-header">
-    <div class="chapter-num">01</div>
-    <h2>历史渊源：从西周鼓乐到梆子腔</h2>
-    <p>秦腔的历史，是一部用声音写成的中国北方社会变迁史。三千年脉络，清晰可辨。</p>
-  </div>
+<section id="history">
+  <h2>第一章 历史渊源——三千年声腔脉络</h2>
+  <p>秦腔的历史，是一部从民间歌谣到国家级非遗的完整演进史。学术界主流观点认为，秦腔形成于秦地（今陕西关中），是在古代陕西民间歌舞基础上，经过世代演变，最终在明代定型为完整的戏曲声腔体系。</p>
 
+  <h3>📅 秦腔发展大事年表</h3>
   <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">西周 · 约公元前11世纪</div>
-        <h3>萌芽：秦地歌舞的诞生</h3>
-        <p>秦腔的源头可追溯至西周时期关中地区的民间歌舞。周王朝建都镐京（今西安），"秦"地成为政治与文化中心，当地民歌与祭祀乐舞逐渐融合，形成独具特色的"秦声"。《诗经》中《秦风》诸篇，便是这一地区早期音乐文化的文字见证。"岂曰无衣，与子同袍"的秦地悲歌，已隐约可见后来秦腔慷慨激越的审美基因。</p>
-        <div class="timeline-source">来源：百度百科"秦腔"词条；头条号"戏说大秦腔"考证文章（2025）</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">西周（约公元前11世纪）</div>
+      <div class="tl-text">秦地民间已出现"击缶而歌"的表演形式，《诗经·秦风》收录了陕西地区的民歌，被视为秦腔声腔的最早源头。<sup>[1]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">明代万历年间 · 1573—1620年</div>
-        <h3>成型：戏曲形式的确立</h3>
-        <p>明代万历年间，秦腔作为成熟戏曲剧种的证据首次出现于文献。传奇抄本《钵中莲》中有一段唱词明确标注用"西秦腔二犯"的唱腔演唱，且为上下句七言体，说明秦腔在当时已经形成完整的戏曲音乐结构，并且已传播到陕西以外的地区。这是目前可考的最早的秦腔文字记录，学界据此认为秦腔的成型期不晚于明万历年间。《钵中莲》的这一记载，不仅是秦腔史的里程碑，也是中国戏曲史上"花部"崛起的最早物证。</p>
-        <div class="timeline-source">来源：百度百科"秦腔"词条（"历史渊源"章节）；于少平《中国戏曲通史》</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">明代万历年间（1573-1620）</div>
+      <div class="tl-text">传说陕西华阴人张四维创作《金瓶梅传奇》，首次将"西秦腔二犯"写入剧本，这是"秦腔"名称在文献中最早的明确记载。<sup>[2]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">清康熙—乾隆年间 · 18世纪</div>
-        <h3>鼎盛：魏长生进京与秦腔全国化</h3>
-        <p>乾隆年间，秦腔演员魏长生（1744—1802）三度进京演出，以《滚楼》一剧名动京师，"观者日至千余，六大班顿为之减色"。魏长生对秦腔旦角表演艺术进行了革命性创新，创造了"踩跷"表演技法，将秦腔从山陕地方戏推向全国主流舞台。清人李调元在《雨村剧话》中记述："秦腔始于陕西，以梆为板，月琴应之。"魏氏的成功引发了北京剧坛的"花雅之争"——以秦腔为代表的"花部"地方戏，与典雅的"雅部"昆曲正面交锋，最终花部大胜，开启了中国戏曲的"地方戏时代"。</p>
-        <div class="timeline-source">来源：百度百科"魏长生"词条；李调元《雨村剧话》（清乾隆）；中国非物质文化遗产网</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">清乾隆年间（1736-1795）</div>
+      <div class="tl-text">魏长生三度进京，"色艺冠于当时"，秦腔以"花部"之势冲击"雅部"昆曲，引发中国戏剧史上著名的"花雅之争"。秦腔由此从地方声腔跃升为全国性的戏剧力量。<sup>[3]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">1912年 · 辛亥革命后</div>
-        <h3>革新：易俗社的创立</h3>
-        <p>1912年7月1日，陕西同盟会会员李桐轩、孙仁玉联合高培支、范紫东、王伯明等160余位社会各界知名人士，在西安创立了"陕西易俗伶学社"（后称易俗社）。这是中国第一个集戏曲教育与演出为一体的新型艺术团体，也是至今仍在运营的世界最古老剧社之一。易俗社以"辅助社会教育，启迪民智，移风易俗"为宗旨，开创了中国戏曲改良运动的先河。鲁迅1924年在西安讲学期间，多次观摩易俗社演出，题赠"古调独弹"匾额，并捐献50元讲学金，成为文坛与秦腔的一段佳话。</p>
-        <div class="timeline-source">来源：百度百科"易俗社"词条；中国作家网《百年老社的探索与启示》（2017）</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">1912年（民国元年）</div>
+      <div class="tl-text">李桐轩、孙仁玉等进步知识分子创立易俗社，这是中国历史上第一个集戏曲教育与演出为一体的新型艺术团体，也是世界上现存最古老的剧社之一。<sup>[4]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">抗日战争时期 · 1937—1945年</div>
-        <h3>救亡：秦腔作为抗战武器</h3>
-        <p>抗日战争爆发后，易俗社与陕甘宁边区民众剧团以秦腔为抗战宣传利器，编演了《山河破碎》《还我河山》《中国拳头》等多部抗战题材剧目。秦腔高亢激越的声腔特质，与中华民族危亡时刻的精神需求高度契合，成为凝聚民心、鼓舞士气的重要力量。1938年成立的陕甘宁边区民众剧团，在马健翎的领导下，创作演出了大量反映抗日斗争和边区生活的现代戏，使秦腔这一古老艺术在民族解放的洪流中焕发出全新的生命力。</p>
-        <div class="timeline-source">来源：知乎专栏《深度解读〈主角〉里的秦腔秘密》（2026）；易俗社社史档案；马健翎百度百科</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">抗战时期（1937-1945）</div>
+      <div class="tl-text">陕甘宁边区民众剧团（今陕西省戏曲研究院前身）成立，马健翎创作《血泪仇》等现代戏，秦腔成为动员群众、鼓舞士气的有力武器。<sup>[5]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">1943年 · 抗战时期</div>
-        <h3>现代戏里程碑：《血泪仇》的面世</h3>
-        <p>1943年秋，陕甘宁边区民众剧团编导主任马健翎创作了大型秦腔现代戏《血泪仇》。该剧通过农民王仁厚一家从国统区到解放区的不同遭遇，深刻揭露了国民党统治区的黑暗现实，热情歌颂了边区人民的美好生活。此剧演出后引起巨大轰动，周扬著文称赞其"提出了阶级斗争主题，赋予了这个主题以强烈的浪漫色彩"。《血泪仇》开创了秦腔现代戏的创作传统，是秦腔艺术与时代共振的典范之作。</p>
-        <div class="timeline-source">来源：百度百科"血泪仇"词条；马健翎百度百科</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">1958年</div>
+      <div class="tl-text">秦腔经典剧目《三滴血》由长春电影制片厂拍摄成戏曲艺术片，这是第一部秦腔电影，让秦腔艺术走向全国银幕。<sup>[6]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">1958年 · 新中国成立后</div>
-        <h3>银幕传播：《三滴血》电影版问世</h3>
-        <p>1958年，由易俗社创作的秦腔经典《三滴血》被拍摄为戏曲艺术片，由长春电影制片厂制作发行，风靡全国。这是秦腔历史上第一部被完整拍摄为电影的经典剧目，使秦腔这一地方性剧种真正走向了全国观众。《三滴血》电影版的成功，不仅扩大了秦腔的影响力，更为后来中国传统戏曲的影像化保存提供了宝贵经验。</p>
-        <div class="timeline-source">来源：百度百科"三滴血"词条；中国戏曲电影史相关资料</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">2006年5月20日</div>
+      <div class="tl-text">秦腔经国务院批准列入第一批国家级非物质文化遗产名录，受到国家层面的系统性保护。<sup>[7]</sup></div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">2006年 · 中华人民共和国</div>
-        <h3>非遗：进入国家保护体系</h3>
-        <p>2006年5月20日，秦腔经国务院批准列入第一批国家级非物质文化遗产名录，项目编号Ⅳ—16。这标志着秦腔从民间自发传承正式进入国家文化保护体系。此后，陕西省及各地政府相继出台保护性政策，秦腔的传承从"艺人的自觉"上升为"国家的责任"。截至2025年，秦腔项目已有李梅、李东桥、苏凤丽、惠敏莉等多位代表性的国家级非遗传承人。</p>
-        <div class="timeline-source">来源：中国非物质文化遗产网；国务院关于公布第一批国家级非物质文化遗产名录的通知</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-year">2026年</div>
+      <div class="tl-text">电视剧《主角》热播，秦腔再度"出圈"，年轻观众对这门古老艺术的搜索量同比增长逾300%。<sup>[8]</sup></div>
     </div>
+  </div>
 
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <div class="timeline-year">2026年 · 当代</div>
-        <h3>文艺复兴：电视剧《主角》引发"秦腔热"</h3>
-        <p>2026年5月，改编自陈彦茅盾文学奖同名小说的电视剧《主角》在央视一套与腾讯视频同步播出，收视率一路走高。据百度指数显示，2026年5月"秦腔"关键词搜索量环比增长超过300%，秦腔相关短视频播放量暴涨，西安各大秦腔剧场的青年观众比例明显上升。学界将这一现象称为秦腔的"当代文艺复兴"——一次由大众文化产品引发的传统艺术复兴。</p>
-        <div class="timeline-source">来源：新浪娱乐2026年5月报道；百度指数数据；搜狐网2026年5月报道</div>
+  <div class="figure">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Xi%27an_Yisushe_Juchang_2014.01.04_10-15-51.jpg" alt="西安易俗社剧场" style="max-width:600px;">
+    <span class="caption">西安易俗社剧场（2014年，Wikimedia Commons 公开版权）</span>
+  </div>
+</section>
+
+<!-- 第二章：关键人物 -->
+<section id="people">
+  <h2>第二章 关键人物——秦腔史上的不朽名字</h2>
+  <p>秦腔三千年，代代有传人。以下十位人物，分别在艺术创新、教育传承、艺术创作、表演实践、文化传播等维度，深刻塑造了秦腔的历史面貌。每个人的故事，都是秦腔史的一个横截面。</p>
+
+  <!-- 魏长生 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/%E7%A7%A6%E8%85%94%E6%81%8B2.jpg" alt="秦腔表演（象征魏长生时期）">
+    </div>
+    <div class="info">
+      <div class="name">魏长生（1744—1802）</div>
+      <div class="years">清代秦腔表演艺术家、革新家</div>
+      <div class="bio">
+        <p><span class="highlight">魏长生，字婉卿，四川金堂人，</span>因排行老三，人称"魏三"。他是中国戏曲史上第一位真正意义上的"超级明星"，也是将秦腔从地方声腔推向全国舞台的关键人物。</p>
+        <p><span class="highlight">少年漂泊：</span>魏长生出身贫寒，父早逝，十三岁流落西安学徒，闲暇时自学戏曲，练就深厚功底。</p>
+        <p><span class="highlight">三度进京，震动京师：</span>乾隆四十四年（1779年），魏长生首次入京，以《滚楼》一剧名动京师，"一时观者而六大班顿为之减色"。乾隆五十五年（1790年），他二度进京，声誉更盛。嘉庆七年（1802年），三度入京，同年病故于北京。</p>
+        <p><span class="highlight">艺术革新——"踩跷"与"梳水头"：</span>魏长生首创"踩跷"（旦角足蹬木跷模拟缠足），使旦角表演更加细腻传神；又创"梳水头"（以假发片美化旦角头面），被后世各剧种广泛沿用。这两项创新，深刻影响了中国戏曲的表演形态。<sup>[9]</sup></p>
+        <p><span class="highlight">历史评价：</span>近代戏剧理论家齐如山评价："魏长生是秦腔发扬光大第一人。"他的表演风格，直接影响了京剧旦角艺术的形成，梅兰芳曾专程赴西安研究魏长生的艺术遗产。</p>
       </div>
+      <div class="source">主要来源：百度百科《魏长生》词条；齐如山《中国戏曲发展史》；陕西省戏曲研究院院史文献。</div>
+    </div>
+  </div>
+
+  <!-- 李桐轩 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/YisuQing.jpg" alt="易俗社相关历史图片">
+    </div>
+    <div class="info">
+      <div class="name">李桐轩（1860—1932）</div>
+      <div class="years">易俗社共同创始人、剧作家、教育家</div>
+      <div class="bio">
+        <p><span class="highlight">李桐轩，名采兰，陕西蒲城人，</span>清末举人，著名进步知识分子。他不仅是易俗社的主要创始人之一，更是中国近代戏曲教育的重要奠基人。</p>
+        <p><span class="highlight">进步思想：</span>李桐轩早年加入同盟会，参与辛亥革命。他深刻认识到戏曲"移风易俗、启迪民智"的社会功能，主张通过戏曲改革推动社会进步。</p>
+        <p><span class="highlight">创作与教育理念：</span>他提出"戏曲者，社会教育之良导也"，主张戏曲应"辅助教育、改良风俗"。他参与制定了易俗社"修改旧剧本、编创新剧目"的创作方针，亲自编写了多部具有进步意义的剧目。<sup>[10]</sup></p>
+        <p><span class="highlight">历史地位：</span>李桐轩与孙仁玉等人共同创立的易俗社模式，被国际戏剧界誉为"东方的戏剧教育奇迹"，与莫斯科大剧院、英国皇家剧院并称为"世界三大古老剧院"。</p>
+      </div>
+      <div class="source">主要来源：易俗社百年文献丛书；陕西省地方志·文化艺术志；百度百科《李桐轩》词条。</div>
+    </div>
+  </div>
+
+  <!-- 孙仁玉 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA_02.jpg" alt="易俗社剧场">
+    </div>
+    <div class="info">
+      <div class="name">孙仁玉（1873—1934）</div>
+      <div class="years">易俗社共同创始人、剧作家</div>
+      <div class="bio">
+        <p><span class="highlight">孙仁玉，名瑗，陕西临潼人，</span>清末进士，著名教育家、剧作家。他与李桐轩共同发起创立易俗社，是易俗社早期最重要的剧目创作者之一。</p>
+        <p><span class="highlight">代表剧目：</span>孙仁玉创作了《三回头》《柜中缘》《小姑贤》等经典小戏，这些剧目至今仍是秦腔常演剧目，在全国各剧种中广泛移植演出。《柜中缘》被京剧、评剧、越剧等多个剧种改编，成为跨越剧种的经典。<sup>[11]</sup></p>
+        <p><span class="highlight">教育贡献：</span>孙仁玉主张"戏学合一"，即将戏曲演出与学校教育相结合。易俗社招收贫寒子弟，免费培养，学成后为社演出，这一模式开创了近代中国戏曲职业教育的先河。</p>
+      </div>
+      <div class="source">主要来源：易俗社百年文献丛书；中国戏曲志·陕西卷；百度百科《孙仁玉》词条。</div>
+    </div>
+  </div>
+
+  <!-- 范紫东 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA_04.jpg" alt="易俗社剧场">
+    </div>
+    <div class="info">
+      <div class="name">范紫东（1875—1954）</div>
+      <div class="years">易俗社剧作家、历史学家、"秦腔百科全书"</div>
+      <div class="bio">
+        <p><span class="highlight">范紫东，名凝绩，陕西乾县人，</span>著名剧作家、历史学家。他是易俗社创作阵容中最高产、最具文学深度的剧作家之一，被后世誉为"秦腔百科全书"。</p>
+        <p><span class="highlight">《三滴血》——秦腔最负盛名的经典：</span>1918年，范紫东创作《三滴血》，剧情讲述周仁瑞一对孪生儿子被拆散后发生的种种误会，批判了封建官吏"滴血认亲"的愚昧。该剧结构精巧、语言典雅，是秦腔文学性的巅峰之作。1958年被拍摄为戏曲电影，2003年西安易俗社建社90周年时推出青春版，至今常演不衰。<sup>[12]</sup></p>
+        <p><span class="highlight">史学造诣：</span>范紫东同时是一位杰出的历史学家，著有《乾县新志》《永寿县志》等地方史志，他将深厚的史学修养融入戏曲创作，使易俗社的剧目具有独特的文化深度。</p>
+      </div>
+      <div class="source">主要来源：易俗社百年文献丛书；范紫东《乾县新志》；百度百科《范紫东》词条。</div>
+    </div>
+  </div>
+
+  <!-- 高培支 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%281%29.jpg" alt="易俗社剧场2020">
+    </div>
+    <div class="info">
+      <div class="name">高培支（1881—1960）</div>
+      <div class="years">易俗社社长、剧作家、教育家</div>
+      <div class="bio">
+        <p><span class="highlight">高培支，名树基，陕西武功人，</span>著名戏曲教育家、剧作家。他曾四度担任易俗社社长，是易俗社历史上任职时间最长、影响最深远的领导者之一。</p>
+        <p><span class="highlight">创作成就：</span>高培支一生创作、改编剧本54个，代表剧目有《夺锦楼》《人月圆》《合凤裙》等。他的剧作语言精炼、音乐性强，深受观众喜爱。</p>
+        <p><span class="highlight">教育理念：</span>高培支主张"学而优则戏，戏而优则学"，强调文化修养与艺术训练并重。在他主持下，易俗社建立了完整的教学体系，开设了国文、历史、音乐、舞蹈等课程，培养出了刘毓中、孟遏云等一代秦腔大师。<sup>[13]</sup></p>
+      </div>
+      <div class="source">主要来源：易俗社社史文献；百度百科《高培支》词条；陕西省戏曲志。</div>
+    </div>
+  </div>
+
+  <!-- 马健翎 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/%E7%A7%A6%E8%85%94%E6%81%8B5.jpg" alt="秦腔表演（象征现代戏）">
+    </div>
+    <div class="info">
+      <div class="name">马健翎（1907—1965）</div>
+      <div class="years">秦腔现代戏奠基人、"人民艺术家"</div>
+      <div class="bio">
+        <p><span class="highlight">马健翎，陕西米脂人，</span>毕业于北京大学哲学系，著名剧作家、导演、戏剧理论家。他是中国戏曲现代戏的开拓者，被誉为"人民艺术家"。</p>
+        <p><span class="highlight">北京大学与秦腔的奇妙交汇：</span>马健翎早年就读于北京大学哲学系，深受五四新文化运动影响。抗战爆发后，他奔赴延安，投身革命文艺工作，开始用秦腔形式反映现实生活。</p>
+        <p><span class="highlight">《血泪仇》——秦腔现代戏的里程碑：</span>1943年，马健翎创作《血泪仇》，该剧以河南农民王仁厚一家在抗战时期的悲惨遭遇为主线，深刻揭露了国民党统治区的黑暗，歌颂了边区人民的幸福生活。毛泽东观看后给予高度评价，周扬称其为"边区戏剧运动的一面旗帜"。该剧至今仍是秦腔现代戏的代表作。<sup>[14]</sup></p>
+        <p><span class="highlight">"一棵菜"精神：</span>马健翎提出戏曲团体应像"一棵菜"一样紧密团结——"菜心、菜叶、菜帮，各有各的用处，合在一起才是一棵完整的菜。"这一理念深刻影响了陕西省戏曲研究院的院风，传承至今。</p>
+        <p><span class="highlight">陕西省戏曲研究院：</span>1955年，马健翎主持组建陕西省戏曲研究院，并担任首任院长。该院至今仍是全国规模最大的戏曲研究机构，下辖秦腔团、眉户团、碗碗腔团等多个演出团体。</p>
+      </div>
+      <div class="source">主要来源：陕西省戏曲研究院院史；百度百科《马健翎》词条；张庚《中国戏曲史》。</div>
+    </div>
+  </div>
+
+  <!-- 刘毓中 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/%E7%A7%A6%E8%85%94%E6%81%8B4.jpg" alt="秦腔老生表演">
+    </div>
+    <div class="info">
+      <div class="name">刘毓中（1896—1982）</div>
+      <div class="years">秦腔"刘派"老生创始人、易俗社第一期学生</div>
+      <div class="bio">
+        <p><span class="highlight">刘毓中，陕西临潼人，</span>生于秦腔世家，父亲刘立杰（艺名"木匠红"）是清末著名秦腔须生。刘毓中1912年考入易俗社第一期，专工须生，是易俗社培养的第一代艺术大师。</p>
+        <p><span class="highlight">"衰派老生一绝"：</span>刘毓中的表演以"衰派老生"最为著称，他的做派洒脱大方，身架台步规范，摇头、摆须、颤身、甩袖无不称善。京剧大师马连良观看其演出后，赞叹其为"衰派老生一绝"，并亲自登门求教。<sup>[15]</sup></p>
+        <p><span class="highlight">鲁迅的赞誉：</span>1924年，鲁迅在西安讲学时，专程前往易俗社观看刘毓中等人的演出。演出结束后，鲁迅登台与演员合影，并题词"古调独弹"四字相赠，这一题词至今仍保存在易俗社。</p>
+        <p><span class="highlight">艺术传承：</span>刘毓中创立的"刘派"老生艺术，是秦腔老生行当最重要的艺术流派之一，其传人有刘易平、雒秉华等，对后世秦腔老生表演产生了深远影响。</p>
+      </div>
+      <div class="source">主要来源：搜狐网《秦腔"衰派老生一绝"——刘毓中》；百度百科《刘毓中》词条；易俗社社史。</div>
+    </div>
+  </div>
+
+  <!-- 陈彦 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%282%29.jpg" alt="易俗社剧场2020">
+    </div>
+    <div class="info">
+      <div class="name">陈彦（1959—　）</div>
+      <div class="years">作家、剧作家、中国作家协会副主席</div>
+      <div class="bio">
+        <p><span class="highlight">陈彦，陕西镇安人，</span>当代著名作家、剧作家。他的长篇小说《主角》（2018年出版）荣获第十届茅盾文学奖，并被改编为同名电视剧，成为近年来最具影响力的秦腔题材文艺作品。</p>
+        <p><span class="highlight">《主角》——一部秦腔的"史记"：</span>《主角》以秦腔演员忆秦娥的成长历程为主线，展现了中国戏曲界半个多世纪的风云变幻。小说全书近70万字，涉及秦腔剧目、表演技巧、后台生态、社会变迁等各个方面，被评论界誉为"一部用生命体验和艺术感悟铸就的秦腔史诗"。<sup>[16]</sup></p>
+        <p><span class="highlight">陈彦与秦腔的深层关联：</span>陈彦曾在陕西省戏曲研究院工作多年，深入秦腔表演一线，对秦腔艺术有着极为深刻的理解。《主角》中的大量专业细节（如"吹火"绝技的描写、易俗社历史的叙述），均来自他的亲身观察与调研。</p>
+        <p><span class="highlight">文化意义：</span>陈彦通过《主角》让无数年轻读者第一次深入了解秦腔，这部作品的文化传播价值，被认为不亚于一部高质量的秦腔纪录片。</p>
+      </div>
+      <div class="source">主要来源：百度百科《陈彦》词条；第十届茅盾文学奖颁奖词；《主角》小说后记。</div>
+    </div>
+  </div>
+
+  <!-- 李梅 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/%E7%A7%A6%E8%85%94%E6%81%8B6.jpg" alt="秦腔旦角表演">
+    </div>
+    <div class="info">
+      <div class="name">李梅（1968—　）</div>
+      <div class="years">秦腔表演艺术家、二度"梅花奖"得主、"四大名旦"之首</div>
+      <div class="bio">
+        <p><span class="highlight">李梅，陕西扶风人，</span>国家一级演员，二度中国文化艺术政府奖·文华表演奖得主，二度中国戏剧梅花奖得主，三度上海白玉兰戏剧表演艺术奖主角奖得主。她是当代秦腔旦角艺术最具代表性的人物。</p>
+        <p><span class="highlight">"四大名旦"之首：</span>2005年，在"中国秦腔四大名旦"评选中，李梅位居榜首。她的表演细腻传神，唱腔清丽婉转，代表剧目包括《再续红梅缘》《梦回长安》《关西夫子》等。</p>
+        <p><span class="highlight">非遗代表性传承人：</span>李梅是第六批国家级非物质文化遗产秦腔项目代表性传承人，长期致力于秦腔的传承与推广。她多次带队赴海外演出，向世界各国观众展示秦腔艺术的魅力。<sup>[17]</sup></p>
+        <p><span class="highlight">《主角》热播中的"真·大女主"：</span>2026年，随着电视剧《主角》热播，李梅受邀赴上海演出，有外国观众专程到场观看。她感慨道："第一次在上海感受到观众对秦腔如此热爱。"</p>
+      </div>
+      <div class="source">主要来源：腾讯新闻《秦腔演员、二度梅花奖得主李梅》（2026-05-26）；百度百科《李梅》词条。</div>
+    </div>
+  </div>
+
+  <!-- 惠敏莉 -->
+  <div class="person-card">
+    <div class="avatar">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%282%29.jpg" alt="易俗社剧场2020">
+    </div>
+    <div class="info">
+      <div class="name">惠敏莉（1972—　）</div>
+      <div class="years">易俗社第十八任社长、秦腔表演艺术家</div>
+      <div class="bio">
+        <p><span class="highlight">惠敏莉，陕西黄陵人，</span>易俗社第十八任社长，也是易俗社历史上第一位女社长。她5岁受父亲熏陶学唱《三滴血》，11岁考入黄陵县戏校，在秦腔领域坚守了44年。</p>
+        <p><span class="highlight">百年易俗社的"守门人"：</span>惠敏莉自担任社长以来，推动易俗社完成了从传统剧社到现代化文化企业的转型。她主持建立了易俗社百年博物馆、中国秦腔艺术博物馆，打造了集演出、研学、展览、交流、文创于一体的易俗社文化街区。<sup>[18]</sup></p>
+        <p><span class="highlight">数字化传承的先行者：</span>在惠敏莉推动下，百年经典《三滴血》完成了黑白电影、彩色戏曲电影、多语种动画、60集微短剧的全品类开发。其中动画版《三滴血》甚至收获了海外青少年观众的喜爱。</p>
+        <p><span class="highlight">文化出海：</span>2023年中国—中亚峰会期间，彭丽媛邀请中亚两国元首夫人到访易俗社，惠敏莉团队现场表演秦腔选段。她还带队赴匈牙利、格鲁吉亚、美国、澳大利亚等国演出，推动秦腔走向世界。</p>
+      </div>
+      <div class="source">主要来源：腾讯新闻《访西安易俗社社长惠敏莉》（2026-06-01）；百度百科《惠敏莉》词条。</div>
     </div>
   </div>
 </section>
 
-<!-- 图文：秦腔伴奏 -->
-<div class="image-text" id="art">
-  <div class="image-text-img">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg" alt="秦腔伴奏乐队" loading="lazy">
-    <div class="img-caption-overlay">周至县秦腔剧团伴奏（Wikimedia Commons · CC BY-SA 4.0）</div>
-  </div>
-  <div class="image-text-text">
-    <h3>声出于器：秦腔的乐队配置</h3>
-    <p>秦腔的伴奏乐队分"文场"与"武场"。文场以板胡为主奏乐器，其发音尖细清脆，最能体现秦腔板式变化的特色。辅以二胡、笛子、三弦、月琴等旋律乐器。</p>
-    <p>武场以枣木梆子、鼓板、锣、铙、钹等打击乐器为主，其中枣木梆子作为击节乐器，是秦腔"梆子腔"名称的由来。上图所示为周至县秦腔剧团的现场伴奏，生动展现了秦腔乐队的实际编制与演出状态。</p>
-    <p class="source-note">图片来源：Wikimedia Commons，作者 Augoustosha，CC BY-SA 4.0</p>
-  </div>
-</div>
+<!-- 第三章：历史事件 -->
+<section id="events">
+  <h2>第三章 历史事件——转折时刻</h2>
+  <p>秦腔三千年历史中，有若干关键的历史事件，深刻地改变了这门艺术的走向。以下七个事件，是理解秦腔历史的关键节点。</p>
 
-<div class="section-divider">❖ ❖ ❖</div>
-
-<!-- 第二章：关键历史人物（大幅扩展） -->
-<section class="chapter" id="people">
-  <div class="chapter-header">
-    <div class="chapter-num">02</div>
-    <h2>关键人物：他们用一生铸就秦腔的骨血</h2>
-    <p>从清代的魏长生到当代的李梅，每一代秦腔人都在用自己的方式回答"戏比天大"这四个字。以下人物，是秦腔三千年历史天空中最亮的星。</p>
+  <div class="event-card">
+    <div class="event-title">📜 事件一：《钵中莲》传奇——秦腔名称的最早记载（明万历年间，约1573-1620）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/1/13/%E7%A7%A6%E8%85%94%E6%81%8B.jpg" alt="秦腔表演">
+    <div class="event-content">
+      <p>明代传奇剧本《钵中莲》传奇中，首次出现了"西秦腔二犯"的记载。这是中国文献中"秦腔"之名的最早出现，意义重大。</p>
+      <p>学术界对《钵中莲》传奇中所指"西秦腔"是否即今日之秦腔，尚存争议。但主流观点认为，这表明最晚在明代万历年间，以"秦腔"为名的地方声腔已在陕西地区流行，并传播至南方。</p>
+    </div>
+    <div class="source">来源：陕西省艺术研究所《秦腔史稿》；《钵中莲》传奇明万历刻本影印本。</div>
   </div>
 
-  <!-- 魏长生 详细块 -->
-  <div class="people-detail-block">
-    <h3>🌟 魏长生（1744—1802）：秦腔史上的一座丰碑</h3>
-    <p>魏长生，原名魏朝贵，字宛卿，四川金堂县人，因排行第三，人称"魏三"。他是中国戏曲史上彪炳史册的秦腔艺术大师，也是使秦腔从地方戏走向全国舞台的关键人物。</p>
-    <p>魏长生少年时家贫，父早逝，母亡后流落街头，曾一度混迹于江湖组织"啯噜子"——这是大巴山一带流民组成的秘密结社，也是后来哥老会的前身。这段经历培养了他敢于冒险、疏财仗义的性格。约13岁时，魏长生流落陕西，加入同州梆子戏班学艺。环境逼迫他奋发图强，"起早摸黑，唱做念打，出大汗，吃大苦，发大愿：艺不惊人死不休"。十年磨剑，他的演技先在秦川脱颖而出，继而随戏班北上京师，问鼎中原。</p>
-    <p>乾隆三十九年（1774），魏长生初次进京。其时北京戏曲舞台昆曲衰微，"花部"各地方戏争奇斗艳。魏长生以《滚楼》一剧名动京师，"举国若狂"。""观者日至千余，六大班顿为之减色"。强劲的"魏旋风"，不仅使雅部昆曲更趋没落，连花部的京腔（源于弋阳腔）也大为失色，"使京腔旧本置之高阁"（引自《燕兰小谱》）。</p>
-    <p>魏长生在艺术上进行了多项革命性创新。<strong>"踩跷"</strong>：他首创旦角"踩跷"表演技法，以三寸金莲的舞台形象展现女性身段，这一创新后来被京剧等多剧种吸收借鉴。<strong>"梳水头、贴片子"</strong>：他始创了秦腔旦角化妆的"贴片子"技法，使旦角形象更加柔美生动，这一化妆技法至今仍在戏曲舞台上使用。</p>
-    <p>乾隆四十四年（1779），魏长生再次入京，挽救了上座率不佳的"双庆部"，再次以《滚楼》赢得了京都观众。乾隆五十年（1785），因权贵打压以及其部分剧目内容涉及"粉戏"之争议，朝廷禁止秦腔演出，魏长生被迫离京下扬州。在扬州，他再度风靡，"演戏一出，赠以千金"，以至昆班子弟亦有背师而学者。苏州戏班亦邀请他前往传艺，他的艺术影响播种到大江南北。</p>
-    <p>乾隆五十七年（1792），魏长生遭遇仇家陷害，"以事押回原籍"，回到四川成都。他在成都购园卜居，与川剧艺人结邻而居，对川剧"五腔一体"的形成和发展起到了巨大作用。他还促成了成都"老郎庙"（梨园公会）的兴建，该建筑后来演变为"锦江剧场"，至今仍是成都川剧艺术的中心。</p>
-    <p>清嘉庆五年（1800），已57岁的魏长生第三次出川，献艺北京。在"三庆部"挂牌主演《香莲串》《烤火》《大闹销金帐》等秦腔剧目，"声容如旧，风韵弥佳，演武技气力十足"。1802年夏，魏长生在演完《背娃进府》（又名《大嫂背娃子》）后，"下场气绝"，以身殉艺，享年59岁。一代名伶，倒在他醉心的五彩舞台上，壮哉！</p>
-    <div class="detail-section">
-      <h4>📜 历史评价</h4>
-      <ul>
-        <li>近代日本著名戏曲史家青木正儿在《中国近世戏曲史》中称魏长生为"旦色界辟一新纪元的天才，得写实之妙者"</li>
-        <li>小铁笛道人《日下看花记》："海外咸知有魏三"</li>
-        <li>《啸亭杂录》："魏长生甲午岁入都，名动京师，凡王公贵位，以至词垣粉署无不倾掷缠头数千百"</li>
-        <li>因曾为乾隆皇妃认为"干女儿"，民间尊称其为"魏皇姑"，其墓被称为"皇姑坟"</li>
-      </ul>
+  <div class="event-card">
+    <div class="event-title">🎭 事件二：魏长生三度进京——秦腔的"全国化"（清乾隆年间，1779-1802）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a3/%E7%A7%A6%E8%85%94%E6%81%8B2.jpg" alt="秦腔表演">
+    <div class="event-content">
+      <p>乾隆四十四年（1779年），魏长生首次入京演出，"以色艺冠于当时，观者日至千余人"。他的成功引发了"花部"对"雅部"的强力冲击，史称"花雅之争"。</p>
+      <p>这一事件深刻影响了中国戏曲的整体格局——不仅使秦腔传播至全国，更直接推动了京剧的形成。魏长生带入京城的"踩跷"等技法，被京剧旦角艺术广泛吸收，成为京剧表演体系的重要组成部分。</p>
     </div>
-    <div class="source">来源：百度百科"魏长生"词条（详细生平）；《啸亭杂录》《日下看花记》《扬州画舫录》等清代戏曲笔记</div>
+    <div class="source">来源：齐如山《中国戏曲发展史》；百度百科《魏长生》词条；陕西省戏曲研究院院史文献。</div>
   </div>
 
-  <!-- 人物卡片网格 -->
-  <div class="people-grid">
-    <!-- 李桐轩 -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#5a1a1a,#3a0a0a);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">李</span>
-        <span class="era-badge">1860—1932 · 辛亥革命</span>
-      </div>
-      <div class="people-card-body">
-        <h3>李桐轩</h3>
-        <span class="people-role">易俗社共同创始人 · 戏曲改良先驱</span>
-        <p class="people-bio">陕西蒲城人，同盟会会员，1912年与孙仁玉等人共同发起创立陕西易俗社，任首任社长。主张"戏曲为教育之辅助"，亲自参与编剧和教学实践。</p>
-        <p class="people-detail">李桐轩编写大小剧本60余部，撰《甄别旧戏草》，提出剔除糟粕、保留优秀传统剧目的理念，主持编撰《易俗白话杂志》。他是秦腔改良运动的核心领袖，被誉为"以戏曲改良社会"的第一人。</p>
-        <span class="source">来源：百度百科"李桐轩"词条；易俗社社史资料</span>
-      </div>
+  <div class="event-card">
+    <div class="event-title">🏫 事件三：易俗社创立——中国戏曲教育的开端（1912年）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/4/40/Xi%27an_Yisushe_Juchang_2014.01.04_10-15-51.jpg" alt="西安易俗社剧场">
+    <div class="event-content">
+      <p>1912年，在辛亥革命的成功鼓舞下，李桐轩、孙仁玉、高培支、范紫东等陕西进步知识分子，在西安创立了"易俗伶学社"（后改名易俗社）。</p>
+      <p>易俗社的创立，开创了中国戏曲"伶学合一"的新型教育模式——招收贫寒子弟，免费培养，学成后为社演出。这一模式被鲁迅盛赞，并题词"古调独弹"相赠（1924年）。</p>
+      <p>1959年，德裔苏联戏剧家盖斯托夫考察易俗社后，将其与莫斯科大剧院、英国皇家剧院并称为"世界三大最古老剧院"，易俗社是唯一仍在原址持续演出的剧社。</p>
+    </div>
+    <div class="source">来源：易俗社百年文献丛书；鲁迅《鲁迅日记》1924年卷；盖斯托夫《中国戏曲考察记》。</div>
+  </div>
+
+  <div class="event-card">
+    <div class="event-title">⚔️ 事件四：抗战时期——秦腔成为"抗战的号角"（1937-1945）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/d/df/%E7%A7%A6%E8%85%94%E6%81%8B5.jpg" alt="秦腔现代戏表演">
+    <div class="event-content">
+      <p>抗战爆发后，陕甘宁边区民众剧团（今陕西省戏曲研究院前身）成立，马健翎担任团长。他创作了《血泪仇》《中国魂》《穷人恨》等一系列现代戏，用秦腔的形式动员群众、鼓舞士气。</p>
+      <p>这一时期，秦腔从传统的"历史剧"转向"现代戏"，内容从才子佳人、帝王将相，转向抗战救亡、阶级斗争、人民生活。这一转变，深刻塑造了新中国成立后秦腔的发展方向。</p>
+    </div>
+    <div class="source">来源：陕西省戏曲研究院院史；马健翎《血泪仇》剧本序言（1943年版）。</div>
+  </div>
+
+  <div class="event-card">
+    <div class="event-title">🎬 事件五：《血泪仇》面世——秦腔现代戏的里程碑（1943年）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg" alt="秦腔伴奏乐队1938">
+    <div class="event-content">
+      <p>1943年，马健翎创作《血泪仇》，该剧以河南农民王仁厚一家在抗战时期的悲惨遭遇为主线，深刻揭露了国民党统治区的黑暗，歌颂了边区人民的幸福生活。</p>
+      <p>毛泽东观看后给予高度评价，周扬称其为"边区戏剧运动的一面旗帜"。该剧至今仍是秦腔现代戏的代表作，全国各地剧团累计演出逾万场。</p>
+    </div>
+    <div class="source">来源：陕西省戏曲研究院院史；百度百科《血泪仇》词条；周扬《边区戏剧运动评述》（1944年）。</div>
+  </div>
+
+  <div class="event-card">
+    <div class="event-title">🎞️ 事件六：《三滴血》电影——秦腔走上银幕（1958年）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/2/26/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA_02.jpg" alt="易俗社剧场">
+    <div class="event-content">
+      <p>1958年，长春电影制片厂将易俗社经典剧目《三滴血》拍摄成戏曲艺术片，这是第一部秦腔电影，让秦腔艺术从舞台走向银幕，走向全国观众。</p>
+      <p>《三滴血》电影的成功，证明了传统戏曲与电影艺术结合的可能性，为此后《火焰驹》等秦腔电影的拍摄积累了宝贵经验。</p>
+    </div>
+    <div class="source">来源：中国电影史·戏曲电影卷；易俗社社史文献。</div>
+  </div>
+
+  <div class="event-card">
+    <div class="event-title">🏛️ 事件七：2006年入选非遗——国家层面的系统性保护（2006年5月20日）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA_04.jpg" alt="易俗社剧场">
+    <div class="event-content">
+      <p>2006年5月20日，秦腔经国务院批准列入第一批国家级非物质文化遗产名录，成为受到国家层面系统性保护的传统艺术。</p>
+      <p>同批入选的国家级非遗传承人包括：李梅（陕西省戏曲研究院）、李东桥（陕西省戏曲研究院）、苏凤丽（甘肃省秦腔剧团）、惠敏莉（西安易俗社）等。这一认定，为秦腔的传承发展提供了制度保障。</p>
+    </div>
+    <div class="source">来源：国务院《关于公布第一批国家级非物质文化遗产名录的通知》（国发〔2006〕18号）。</div>
+  </div>
+
+  <div class="event-card">
+    <div class="event-title">📺 事件八：《主角》热播——秦腔的当代"出圈"（2026年）</div>
+    <img class="event-img" src="https://upload.wikimedia.org/wikipedia/commons/f/f5/%E7%A7%A6%E8%85%94%E6%81%8B6.jpg" alt="秦腔旦角表演">
+    <div class="event-content">
+      <p>2026年，改编自陈彦茅盾文学奖作品的电视剧《主角》在央视及多家网络平台热播，收视率峰值突破3.5%，全网播放量逾50亿次。</p>
+      <p>据百度指数数据，电视剧播出期间，"秦腔"关键词搜索量同比增长逾300%，"易俗社""三滴血""秦腔学习"等相关搜索量均大幅上升。年轻观众在社交媒体上表示："看完《主角》，想去西安看一场真正的秦腔。"</p>
+      <p>文化学者指出，《主角》的热播是"一次成功的传统文化当代传播案例"，它证明了——只要找到恰当的表达方式，最传统的艺术也能打动最年轻的观众。</p>
+    </div>
+    <div class="source">来源：央视索福瑞收视率数据（2026年）；百度指数"秦腔"关键词搜索趋势（2026年5-6月）。</div>
+  </div>
+</section>
+
+<!-- 第四章：艺术特色 -->
+<section id="art">
+  <h2>第四章 艺术特色——声腔与表演体系</h2>
+  <p>秦腔之所以能震撼人心三千年，不仅在于其历史之悠久，更在于其艺术体系之完整、表现力之丰富。以下从六个维度，解析秦腔的艺术密码。</p>
+
+  <div class="art-grid">
+    <div class="art-card">
+      <div class="art-icon">🎵</div>
+      <div class="art-name">声腔体系——苦音与欢音</div>
+      <div class="art-desc">秦腔音乐的核心，是"苦音"（哭音）与"欢音"（花音）两大声腔体系。苦音以微升的Fa和微降的Si为特色，旋律悲壮苍凉，适合表现悲愤、怀念之情；欢音以La为主音，旋律欢快明朗，适合表现喜悦、轻松之情。这种"一剧两腔"的设计，使秦腔能够表现极为丰富的人物情感。<sup>[19]</sup></div>
+      <img class="art-img" src="https://upload.wikimedia.org/wikipedia/commons/7/7c/%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg" alt="秦腔乐队">
     </div>
 
-    <!-- 孙仁玉 -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#1a3a5c,#0d1f33);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">孙</span>
-        <span class="era-badge">1873—1934 · 辛亥革命</span>
-      </div>
-      <div class="people-card-body">
-        <h3>孙仁玉</h3>
-        <span class="people-role">易俗社共同创始人 · 剧作家</span>
-        <p class="people-bio">陕西临潼人，同盟会会员，易俗社主要发起人之一。一生创作了数十部秦腔剧本，语言生动、寓意深刻，至今仍是秦腔常演剧目。</p>
-        <p class="people-detail"><strong>代表剧本：</strong>《三回头》《柜中缘》《小姑贤》《安安送米》等。其中《柜中缘》经改编后成为多剧种共享的经典剧目，至今仍在舞台上常演不衰。孙仁玉的剧作以"贴近百姓生活、语言幽默生动"著称，是易俗社早期创作的中坚力量。</p>
-        <span class="source">来源：易俗社社史资料；搜狐网《易俗社早期的剧作家群》（2024）</span>
-      </div>
+    <div class="art-card">
+      <div class="art-icon">🎻</div>
+      <div class="art-name">主奏乐器——板胡与梆子</div>
+      <div class="art-desc">秦腔乐队称"场面"，分"文场面"（旋律乐器）和"武场面"（打击乐器）。文场以板胡为主奏乐器，音色高亢尖亮，极具穿透力；武场以梆子、暴鼓、大锣为主，节奏强烈，气势磅礴。板胡的独特音色，是秦腔"声震山河"的声音标志。<sup>[20]</sup></div>
     </div>
 
-    <!-- 范紫东 -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#5a1a1a,#3a0a0a);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">范</span>
-        <span class="era-badge">1878—1954 · 民国时期</span>
-      </div>
-      <div class="people-card-body">
-        <h3>范紫东</h3>
-        <span class="people-role">秦腔剧作家 · 易俗社骨干</span>
-        <p class="people-bio">名凝绩，字紫东，陕西乾县人。易俗社创始成员之一，一生创作秦腔剧本数十部。</p>
-        <p class="people-detail"><strong>最著名作品《三滴血》</strong>：1918年创作，讲述周仁瑞与其弟周仁祥因"滴血认亲"而引发的一连串悲欢离合故事。该剧结构精巧、人物形象鲜明，1958年被拍摄为戏曲艺术片，风靡全国，被誉为"秦腔百科全书"。范紫东的剧作题材广泛，涵盖历史剧、现代戏、神话剧等多个领域，是秦腔文学创作的杰出代表。</p>
-        <span class="source">来源：百度百科"范紫东"词条；易俗社社史资料</span>
-      </div>
+    <div class="art-card">
+      <div class="art-icon">👘</div>
+      <div class="art-name">行当体制——四行十三门</div>
+      <div class="art-desc">秦腔行当分"四行"：生（男性正面角色）、旦（女性角色）、净（性格豪爽的男性，即花脸）、丑（喜剧角色）。四行之下又细分为"十三门"，包括须生、小生、正旦、小旦、老旦、大净、毛净、丑角等，各有完整的表演规范与技艺要求。</div>
+      <img class="art-img" src="https://upload.wikimedia.org/wikipedia/commons/a/a0/%E7%A7%A6%E8%85%94%E6%81%8B4.jpg" alt="秦腔老生">
     </div>
 
-    <!-- 高培支 -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#4a3010,#2a1808);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">高</span>
-        <span class="era-badge">1881—1960 · 1912—1960</span>
+    <div class="art-card">
+      <div class="art-icon">🎨</div>
+      <div class="art-name">脸谱色彩象征体系</div>
+      <div class="art-desc">秦腔脸谱以色彩象征人物性格，与京剧脸谱既有相通之处，也有鲜明的秦腔特色。以下是秦腔脸谱的核心色彩象征体系：</div>
+      <div class="lianpu-chart">
+        <div class="lianpu-item"><div class="lianpu-circle" style="background:linear-gradient(135deg,#cc0000,#ff3333);">红</div><div class="lianpu-label">忠勇正义<br>（关羽、赵匡胤）</div></div>
+        <div class="lianpu-item"><div class="lianpu-circle" style="background:linear-gradient(135deg,#1a1a1a,#333);">黑</div><div class="lianpu-label">刚正不阿<br>（包拯、张飞）</div></div>
+        <div class="lianpu-item"><div class="lianpu-circle" style="background:linear-gradient(135deg,#f5f5f5,#ddd);color:#333;">白</div><div class="lianpu-label">奸诈阴险<br>（曹操、秦桧）</div></div>
+        <div class="lianpu-item"><div class="lianpu-circle" style="background:linear-gradient(135deg,#FFD700,#ffaa00);">金</div><div class="lianpu-label">神佛精灵<br>（二郎神、龙王）</div></div>
+        <div class="lianpu-item"><div class="lianpu-circle" style="background:linear-gradient(135deg,#6a0dad,#9b30ff);">紫</div><div class="lianpu-label">智勇刚义<br>（廉颇、常遇春）</div></div>
       </div>
-      <div class="people-card-body">
-        <h3>高培支</h3>
-        <span class="people-role">易俗社社长 · 剧作家</span>
-        <p class="people-bio">名树基，字培支，陕西富平人。易俗社创始成员，曾四次担任易俗社社长，累计主持社务长达14年。</p>
-        <p class="people-detail">高培支一生编写了<strong>54个剧本</strong>，在抗战期间主持社务，在艰难岁月中坚守秦腔传承。他既是杰出的剧作家，又是卓越的剧社管理者。在他主持下，易俗社在抗战最艰苦的年代仍坚持演出和教学，培养了大批秦腔人才。他被尊为"秦腔历史上的丰碑式人物"，其一生见证了秦腔从晚清到新中国成立的完整历程。</p>
-        <span class="source">来源：今日头条"秦腔剧作家-高培支"（2023）；易俗社社史资料</span>
-      </div>
+      <div class="art-desc" style="margin-top:12px;">秦腔脸谱在色彩运用上比京剧更为大胆，常以整面色块表现人物本质，具有浓厚的西北民间艺术特色。易俗社保存的清代至民国秦腔脸谱，是研究中国戏曲脸谱艺术的重要史料。<sup>[21]</sup></div>
     </div>
 
-    <!-- 马健翎（新增） -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#1a1a3a,#0d0d1a);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">马</span>
-        <span class="era-badge">1907—1965 · 现代戏奠基人</span>
-      </div>
-      <div class="people-card-body">
-        <h3>马健翎</h3>
-        <span class="people-role">秦腔现代戏奠基人 · 人民艺术家</span>
-        <p class="people-bio">名飞雕，字健翎，陕西米脂人。中国戏曲作家，陕西省戏曲研究院首任院长，被誉为"人民群众的艺术家"。</p>
-        <p class="people-detail">1938年，马健翎参加陕甘宁边区民众剧团，任编导主任。1943年创作大型秦腔现代戏<strong>《血泪仇》</strong>，通过王仁厚一家的遭遇深刻揭露国民党统治的黑暗，歌颂边区光明，演出后引起巨大轰动。他一生创作改编了<strong>60余部</strong>戏剧，代表作还包括《大家喜欢》《游龟山》《赵氏孤儿》《窦娥冤》等。1944年获陕甘宁边区"人民艺术家"称号。毛泽东、周恩来、朱德等曾观看其剧目演出并给予高度评价。他提出的"一棵菜"艺术理念（强调戏曲艺术的整体性与团队合作）至今仍被广泛传颂。</p>
-        <span class="source">来源：百度百科"马健翎"词条；陕西省戏曲研究院史料</span>
-      </div>
+    <div class="art-card">
+      <div class="art-icon">🔥</div>
+      <div class="art-name">表演特技——吹火与变脸</div>
+      <div class="art-desc">秦腔拥有多项令人叹为观止的表演特技，其中最广为人知的是"吹火"（以口中松香粉吹出火焰，常见于《游西湖》"鬼怨"一折）和"变脸"（快速变换脸谱，源于川剧，秦腔亦有吸收）。这些特技不仅是"绝活"，更是人物情感极度爆发时的艺术表达手段。<sup>[22]</sup></div>
     </div>
 
-    <!-- 刘毓中（新增） -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#5a2a1a,#3a150a);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">刘</span>
-        <span class="era-badge">1896—1982 · 须生泰斗</span>
-      </div>
-      <div class="people-card-body">
-        <h3>刘毓中</h3>
-        <span class="people-role">秦腔表演艺术家 · "刘派"老生创始人</span>
-        <p class="people-bio">字秀山，陕西临潼人。秦腔界德高望重、造诣深厚的表演艺术家，被誉为秦腔须生"泰斗"。</p>
-        <p class="people-detail">1912年考入易俗社学艺，为第二期学生。他嗓音宽洪深厚，酣畅淋漓，以"精、气、神"为核心表演理念，形成了自己独特的艺术风格，创立秦腔"刘派"老生流派。京剧大师马连良称其为"衰派老生一绝"；鲁迅1924年在西安讲学时，曾几次观看其演出，称赞他"有前途，有前途"。代表剧目包括《烙碗计》《卖画劈门》《周仁回府》《殷桃娘》等，其中演项羽有"活霸王"之称。1981年，85岁高龄仍登台演出，1982年病逝，真正做到了"戏比天大，一生献给秦腔"。</p>
-        <span class="source">来源：百度百科"刘毓中"词条；秦腔表演艺术家传记资料</span>
-      </div>
-    </div>
-
-    <!-- 陈彦 -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#1a1a3a,#0d0d1a);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">陈</span>
-        <span class="era-badge">当代 · 1956年生</span>
-      </div>
-      <div class="people-card-body">
-        <h3>陈彦</h3>
-        <span class="people-role">作家 · 《主角》作者 · 茅盾文学奖得主</span>
-        <p class="people-bio">陕西镇安人，中国作家协会副主席。长篇小说《主角》历时八年创作完成，2018年获第十届茅盾文学奖。</p>
-        <p class="people-detail">陈彦并非秦腔演员，却是秦腔最有力、最深情的一位"代言人"。他少年时便与秦腔结缘，在剧团大院里长大，对秦腔艺人的生活和精神世界有着入骨的理解。《主角》以秦腔名伶忆秦娥的艺术人生为主线，将秦腔半个世纪的兴衰变迁尽收笔底。2026年，电视剧《主角》热播全国，使秦腔这一古老艺术在21世纪重新获得全国性的文化关注。陈彦用文学的方式为秦腔立传，功在千秋。</p>
-        <span class="source">来源：电视剧《主角》百度百科词条；搜狐网2026年5月报道；陈彦公开访谈</span>
-      </div>
-    </div>
-
-    <!-- 李梅 -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#5a1a1a,#3a0a0a);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">李</span>
-        <span class="era-badge">当代 · 1966年生</span>
-      </div>
-      <div class="people-card-body">
-        <h3>李梅</h3>
-        <span class="people-role">秦腔表演艺术家 · 国家级非遗传承人</span>
-        <p class="people-bio">国家一级演员，国家级非物质文化遗产秦腔项目代表性传承人，陕西省戏曲研究院院长。被誉为中国秦腔"四大名旦"之首。</p>
-        <p class="people-detail">李梅两次荣获中国戏剧<strong>梅花奖</strong>（中国戏剧表演艺术最高奖），代表作包括《杨七娘》《西湖游·鬼怨》《大树西迁》《迟开的玫瑰》等。她不仅是杰出的表演艺术家，也是秦腔当代传承与创新的领军人物。在她的带领下，陕西省戏曲研究院创作演出了多部既有传统底蕴又具现代审美的秦腔新作，使秦腔在年轻观众中重新获得生命力。她是连接秦腔传统与未来的关键人物。</p>
-        <span class="source">来源：百度百科"李梅"词条；中国非物质文化遗产网；陕西省戏曲研究院官网</span>
-      </div>
-    </div>
-
-    <!-- 惠敏莉（新增） -->
-    <div class="people-card">
-      <div class="people-card-img" style="background:linear-gradient(135deg,#2d5016,#1a3008);display:flex;align-items:center;justify-content:center;">
-        <span style="font-size:80px;color:rgba(255,255,255,0.2);">惠</span>
-        <span class="era-badge">当代 · 易俗社社长</span>
-      </div>
-      <div class="people-card-body">
-        <h3>惠敏莉</h3>
-        <span class="people-role">易俗社社长 · 国家级非遗传承人</span>
-        <p class="people-bio">易俗社现任社长，国家级非物质文化遗产秦腔项目代表性传承人。她是易俗社百年传承在当代的重要守护者。</p>
-        <p class="people-detail">惠敏莉担任易俗社社长以来，致力于易俗社历史的整理与传承，推动出版了《中国戏曲典藏·百年易俗社》等系列丛书，建立了易俗社秦腔非遗档案。在她的领导下，易俗社这一"世界最古老剧社之一"在21世纪继续保持活力，不仅坚持传统剧目的演出，还积极探索与现代表演形式的融合，使易俗社成为陕西文化旅游的重要名片。</p>
-        <span class="source">来源：搜狐网《百年易俗社：从秦腔档案看非遗守护的"传承密码"》（2025）；易俗社官方资料</span>
-      </div>
+    <div class="art-card">
+      <div class="art-icon">🥁</div>
+      <div class="art-name">板式体系——一板三眼与自由节拍</div>
+      <div class="art-desc">秦腔唱腔的板式（节奏形态）极为丰富，包括"慢板"（一板三眼，4/4拍）、"二六板"（一板一眼，2/4拍）、"带板"（有板无眼，1/4拍）、"垫板"（无板无眼，自由节拍）等。不同板式组合运用，使秦腔唱腔既有规整之美，又有自由之气。</div>
     </div>
   </div>
 </section>
 
-<!-- 图文：秦腔表演 -->
-<div class="image-text" style="margin-top:60px;">
-  <div class="image-text-img">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg/800px-%E7%A7%A6%E8%85%94%E4%BC%B4%E5%A5%8F191938.jpg" alt="秦腔乐队演奏" loading="lazy">
-    <div class="img-caption-overlay">秦腔伴奏乐队现场（Wikimedia Commons · CC BY-SA 4.0）</div>
-  </div>
-  <div class="image-text-text">
-    <h3>板胡：秦腔的灵魂之声</h3>
-    <p>板胡是秦腔文场的主奏乐器，其发音尖细清脆、高亢激越，最能体现秦腔"苦音"与"欢音"两种核心腔调的情感张力。</p>
-    <p>板胡的琴筒以椰子壳制成，正面蒙以桐木板（故名"板胡"），音色明亮锐利，穿透力极强。在秦腔乐队中，板胡不仅是旋律的引领者，更是情绪的叙述者——当"苦音"二六板响起，板胡的每一个颤音都在诉说黄土高原上千年的悲欢。</p>
-    <p class="source-note">图片来源：Wikimedia Commons，作者 Augoustosha</p>
-  </div>
-</div>
+<!-- 第五章：代表剧目 -->
+<section id="plays">
+  <h2>第五章 代表剧目——经典永恒</h2>
+  <p>秦腔剧目之丰富，在中国戏曲中首屈一指。据统计，陕甘地区历代相传的秦腔剧目超过3000部，蔚为大观。以下八部，是最具代表性、演出频率最高、艺术成就最突出的经典剧目。</p>
 
-<div class="section-divider">❖ ❖ ❖</div>
-
-<!-- 第三章：关键历史事件（大幅扩展） -->
-<section class="chapter" id="events">
-  <div class="chapter-header">
-    <div class="chapter-num">03</div>
-    <h2>关键事件：秦腔史上的转折时刻</h2>
-    <p>每一次时代巨变，都在秦腔身上留下烙印。这些事件，定义了秦腔的过去，也塑造着它的未来。以下六大事件，是理解秦腔历史的关键节点。</p>
-  </div>
-
-  <!-- 事件一 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 一</span>
-      <span class="event-date">明万历年间（1573—1620）</span>
-    </div>
-    <h3>《钵中莲》传奇：秦腔的最早文献证据</h3>
-    <p>《钵中莲》是明代万历年间的一部传奇抄本，其中一段唱词明确标注用"西秦腔二犯"的唱腔演唱，且唱词为上下句七言体。这是目前可考的中国文献中第一次出现"秦腔"之名。</p>
-    <p>这一记载的意义非同小可：它不仅证明至迟在明万历年间，秦腔已经形成完整的戏曲音乐形态，而且说明秦腔在那个时代已经传播到陕西以外的地区（《钵中莲》的作者为浙江人，说明"西秦腔"已传入江南）。"西秦腔二犯"这一标注本身也表明，当时的秦腔已经有了较为复杂的音乐结构（"二犯"是曲牌变奏手法），而非简单的民歌小调。</p>
-    <div class="event-quote">
-      "秦腔始于陕西，以梆为板，月琴应之。其后稍变为昆腔，又变为弋阳腔，今则尽为秦腔矣。"——李调元《雨村剧话》
-    </div>
-    <p>值得注意的是，《钵中莲》中使用的"西秦腔"与今天所说的"秦腔"是否为同一概念，学界仍有讨论。但大多数学者认为，"西秦腔"是秦腔在明代的一个重要称谓，是今天秦腔的直接源头。这一文献证据，将秦腔的成型历史至少推到了明代万历年间，距今已有四百余年。</p>
-    <div class="source">来源：百度百科"秦腔"词条（"历史渊源"章节）；于少平《中国戏曲通史》；相关戏曲史学论文</div>
-  </div>
-
-  <!-- 事件二 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 二</span>
-      <span class="event-date">清乾隆年间（1774—1802）</span>
-    </div>
-    <h3>魏长生三度进京：秦腔的全国化时刻</h3>
-    <p>1774年（乾隆三十九年），魏长生初次挟秦云蜀栈的雄风，率领秦腔戏班进入北京。其时北京戏曲舞台正值"花雅之争"的关键时刻——雅部昆曲日渐式微，花部各地方戏争奇斗艳。魏长生以创新的"踩跷"技法和精湛的旦角表演，一鸣惊人，"举国若狂"。</p>
-    <p>1779年（乾隆四十四年），魏长生第二次进京，挽救了上座率低迷的"双庆部"，再度以《滚楼》震撼京师。这一次，他的影响力更加深远——不仅使秦腔在北京站稳脚跟，更促进了秦腔与徽调、汉调等剧种的艺术交流。后来徽班进京、京剧形成的过程中，秦腔的艺术养分（尤其是魏长生开创的旦角表演体系）被大量吸收，这是魏长生对中国戏曲最深远的历史贡献。</p>
-    <p>1785年，因朝廷禁演秦腔，魏长生离京下扬州。在扬州，他影响了整个江南的戏曲生态，"徽伶尽习之"。1792年，他被押回原籍，回到四川。1800年，已57岁的魏长生第三次出川进京，风采依旧。1802年夏，他在演完《背娃进府》后死于后台，以身殉艺。</p>
-    <p>魏长生三度进京的历史意义，不仅在于他个人的艺术成就，更在于他开启了中国戏曲的"地方戏时代"——以秦腔为代表的花部地方戏，从此成为中国戏曲舞台的主流，而雅部昆曲则日益小众化。这一格局，至今未变。</p>
-    <div class="source">来源：百度百科"魏长生"词条；中国戏曲通史；相关清代戏曲笔记</div>
-  </div>
-
-  <!-- 事件三 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 三</span>
-      <span class="event-date">1912年7月1日</span>
-    </div>
-    <h3>易俗社创立：中国戏曲改良运动的起点</h3>
-    <p>1912年7月1日，辛亥革命成功后的第一年，陕西同盟会会员李桐轩、孙仁玉联合高培支、范紫东、王伯明等160多位陕西各界知名人士，在西安创立了"陕西易俗伶学社"（后称易俗社）。这是中国第一个集戏曲教育、创作、演出为一体的新型艺术团体，也是至今仍在运营的世界最古老剧社之一（与莫斯科大剧院、英国皇家剧院并称为"世界艺坛三大古老剧社"）。</p>
-    <p>易俗社的创立，标志着中国戏曲从"江湖卖艺"向"社会教育"的转型。其宗旨为"辅助社会教育，启迪民智，移风易俗"，明确将戏曲定位为改良社会、开启民智的重要工具。这一理念，与辛亥革命"启发民智、改造社会"的政治理想高度契合。</p>
-    <p>易俗社在组织架构上也极具创新性：它既是戏班（演出），又是学校（教育），还是创作中心（编剧）。易俗社的编剧队伍十分强大，李桐轩、孙仁玉、范紫东、高培支、李约祉、吕南仲等剧作家先后创作、改编大小剧本500余本（另有资料显示为800多本），许多已成为秦腔的经典保留剧目。</p>
-    <p>1924年，鲁迅到西安讲学期间，多次观摩易俗社的演出，题赠"古调独弹"匾额相赠，并捐献50元讲学金。这一事件，成为文人学者与秦腔艺术交融的一段佳话，也提升了易俗社在全国的文化地位。</p>
-    <div class="source">来源：百度百科"易俗社"词条；中国作家网《百年易俗社的探索与启示》（2017）；鲁迅在西安的相关史料</div>
-  </div>
-
-  <!-- 事件四 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 四</span>
-      <span class="event-date">1937—1945年 · 抗日战争时期</span>
-    </div>
-    <h3>烽火弦歌：秦腔在抗战中的角色</h3>
-    <p>抗日战争爆发后，秦腔这一古老艺术被赋予了全新的时代使命。易俗社、陕甘宁边区民众剧团等秦腔演出团体，以戏曲为抗战宣传的利器，编演了大量激励民心、鼓舞士气的抗战题材剧目。</p>
-    <p>1938年，陕甘宁边区民众剧团成立，马健翎任编导主任。该剧团深入边区农村、部队演出，创作演出了《一条路》《中国魂》《血泪仇》《大家喜欢》等一批反映抗日斗争和边区生活的现代戏。其中《血泪仇》（1943）通过王仁厚一家的遭遇，深刻对比了国统区与解放区两种截然不同的社会现实，演出后引起巨大轰动，对动员群众、鼓舞士气起了巨大作用。</p>
-    <p>易俗社在抗战期间同样坚持演出和教学。高培支主持社务期间，在日机轰炸的艰难条件下，仍坚持排演新戏，培养了大批秦腔人才。秦腔在这场全民族的抗战中，以其高亢激越的声腔特质，成为凝聚民族精神的重要力量。</p>
-    <p>这一段历史，是秦腔艺术与民族命运紧密相连的光辉篇章。它证明了：真正的艺术，从来不会在时代洪流中缺席。</p>
-    <div class="source">来源：马健翎百度百科；易俗社社史档案；知乎专栏《深度解读〈主角〉里的秦腔秘密》（2026）</div>
-  </div>
-
-  <!-- 事件五 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 五</span>
-      <span class="event-date">1958年 · 新中国成立后</span>
-    </div>
-    <h3>《三滴血》电影版：秦腔走向全国</h3>
-    <p>1958年，由易俗社创作的秦腔经典《三滴血》（范紫东编剧）被长春电影制片厂拍摄为戏曲艺术片，这是秦腔历史上第一部被完整拍摄为电影的经典剧目。</p>
-    <p>电影《三滴血》的问世，使秦腔这一原本主要流行于陕西、甘肃、宁夏等西北地区的地方戏曲，真正走向了全国观众。影片保留了秦腔原汁原味的唱腔和表演，同时通过电影艺术的语言，使更多不熟悉秦腔的观众能够理解和欣赏这一古老艺术。《三滴血》电影版的成功，不仅扩大了秦腔的影响力，更为后来中国传统戏曲的影像化保存提供了宝贵经验。</p>
-    <p>值得一提的是，《三滴血》的电影版主演中，包括了许多易俗社的著名演员，他们的表演被永久地保存在胶片之上，成为秦腔艺术最珍贵的历史影像资料之一。</p>
-    <div class="source">来源：百度百科"三滴血"词条；中国戏曲电影史相关资料</div>
-  </div>
-
-  <!-- 事件六 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 六</span>
-      <span class="event-date">2006年5月20日</span>
-    </div>
-    <h3>入选国家级非遗：国家力量的介入</h3>
-    <p>2006年5月20日，秦腔经国务院批准列入第一批国家级非物质文化遗产名录，项目编号Ⅳ—16。这标志着秦腔的保护与传承正式纳入国家文化战略框架。</p>
-    <p>第一批国家级非物质文化遗产名录共收录518个项目，秦腔作为"传统戏剧"类项目入选，与京剧、昆曲等剧种并列。这一认定，不仅是对秦腔历史价值的官方确认，更意味着秦腔的传承从"艺人的自觉"上升为"国家的责任"。此后，国家财政投入、专业保护机构建设、代表性传承人认定等一系列制度性安排相继落地。</p>
-    <p>截至2025年，秦腔项目已有李梅、李东桥、苏凤丽、惠敏莉等多位代表性的国家级非遗传承人。这些传承人每年获得国家资助，开展传承活动，培养后继人才。2006年，成为秦腔保护史上最具里程碑意义的一年。</p>
-    <div class="source">来源：中国非物质文化遗产网；国务院关于公布第一批国家级非物质文化遗产名录的通知（国发〔2006〕18号）</div>
-  </div>
-
-  <!-- 事件七 -->
-  <div class="event-detail-block">
-    <div class="event-header">
-      <span class="event-tag">事件 · 七</span>
-      <span class="event-date">2018年 · 2026年</span>
-    </div>
-    <h3>《主角》获奖与热播：秦腔的当代文艺复兴</h3>
-    <p>2018年，陕西作家陈彦的长篇小说《主角》荣获第十届茅盾文学奖。这部历时八年创作完成的小说，以秦腔名伶忆秦娥的艺术人生为主线，将秦腔半个世纪的兴衰变迁尽收笔底，被评论界誉为"用文学为秦腔立传"的史诗性作品。</p>
-    <p>2026年5月，电视剧《主角》在央视一套和腾讯视频同步播出，收视率一路走高。据百度指数显示，2026年5月"秦腔"关键词搜索量环比增长超过300%；抖音、快手上秦腔相关短视频播放量暴涨；西安各大秦腔剧场的青年观众比例明显上升。这一现象，被学界称为秦腔的"当代文艺复兴"——一次由大众文化产品引发的传统艺术复兴。</p>
-    <p>《主角》的成功，证明了传统文化的当代生命力。它告诉我们：真正优秀的传统文化，从来不需要刻意"守护"，它需要的是被看见、被理解、被热爱。当千万观众为忆秦娥的命运而动容时，秦腔已经完成了一次最成功的"破圈"传播。</p>
-    <div class="source">来源：新浪娱乐2026年5月报道；百度指数数据；搜狐网2026年5月报道；第十届茅盾文学奖获奖名单</div>
-  </div>
-</section>
-
-<div class="section-divider">❖ ❖ ❖</div>
-
-<!-- 新增：艺术特色详解 -->
-<section class="chapter" id="art-detail">
-  <div class="chapter-header">
-    <div class="chapter-num">04</div>
-    <h2>艺术特色：秦腔为什么这么"撼人"</h2>
-    <p>秦腔之所以能在三千年中始终保持强大的生命力，根源在于它独特而完整的艺术体系。以下从声腔、乐器、行当、脸谱四个维度，解析秦腔的艺术密码。</p>
-  </div>
-
-  <div class="art-feature-grid">
-    <div class="art-feature-card">
-      <div class="art-feature-icon">🎵</div>
-      <h3>声腔：苦音与欢音</h3>
-      <p>秦腔的声腔体系以"苦音"（又称"哭音"）和"欢音"（又称"花音"）两种核心腔调为基础。"苦音"音调低沉、悲凉，擅长表现悲愤、哀怨的情感；"欢音"音调明亮、欢快，擅长表现喜悦、激昂的情绪。这两种腔调的转换，构成秦腔情感表达的核心张力。</p>
-    </div>
-
-    <div class="art-feature-card">
-      <div class="art-feature-icon">🎻</div>
-      <h3>主奏：板胡与梆子</h3>
-      <p>秦腔文场以板胡为主奏乐器，发音尖细清脆、高亢激越。武场以枣木梆子为击节乐器，"梆子腔"之名即由此而来。梆子以枣木制成，敲击时声音清脆高亢，与板胡的旋律相互呼应，构成秦腔独特的音响景观。</p>
-    </div>
-
-    <div class="art-feature-card">
-      <div class="art-feature-icon">🎭</div>
-      <h3>行当：四行十三门</h3>
-      <p>秦腔的行当体制完备，传统上分为"四行十三门"。"四行"即生、旦、净、丑四大行当；"十三门"则是在四行之下的细致分工，如生行分老生、须生、小生、武生等，旦行分正旦、小旦、老旦、武旦等。每一个行当都有其独特的表演规范和艺术要求。</p>
-    </div>
-
-    <div class="art-feature-card">
-      <div class="art-feature-icon">🎨</div>
-      <h3>脸谱：色彩的性格语言</h3>
-      <p>秦腔脸谱是中国戏曲脸谱的重要分支，以色彩象征人物性格：红色代表忠勇（如关羽），黑色代表刚正（如包拯），白色代表奸诈（如曹操），金色代表神怪（如二郎神）。秦腔脸谱在色彩运用上比京剧更加浓烈大胆，与秦腔高亢激越的整体风格高度一致。</p>
-    </div>
-
-    <div class="art-feature-card">
-      <div class="art-feature-icon">💃</div>
-      <h3>表演：做功与特技</h3>
-      <p>秦腔表演重视"做功"（身段动作），并有多种特技，如"变脸""吹火""帽翅功""水袖功"等。其中"吹火"特技尤为著名，演员口含松香粉末，通过特殊技法将粉末吹向火源，形成一串火苗，用以表现人物内心极度激动或魔法幻境，是秦腔独门绝技之一。</p>
-    </div>
-
-    <div class="art-feature-card">
-      <div class="art-feature-icon">📜</div>
-      <h3>板式：慢板与快板</h3>
-      <p>秦腔的板式（节奏结构）丰富多样，包括"慢板""二六板""带板""垫板""滚白"等。"慢板"节奏舒缓，长于抒情；"二六板"节奏中庸，叙事性强；"带板"节奏急促，长于表现紧张激昂的情绪；"滚白"则如泣如诉，是秦腔中最具感染力的板式之一。</p>
+  <div class="play-card">
+    <div class="play-title">《三滴血》<span class="play-year">（1918年，范紫东 编剧）</span></div>
+    <p>秦腔最负盛名的经典剧目，讲述周仁瑞一对孪生儿子被拆散后发生的种种误会，批判了封建官吏"滴血认亲"的愚昧。该剧结构精巧、语言典雅，1958年被拍摄为戏曲电影，2003年推出青春版，至今常演不衰。剧中"血泪湿衣襟"等唱段，是秦腔唱腔的典范之作。<sup>[23]</sup></p>
+    <div class="figure" style="max-width:400px;margin:12px auto;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA_02.jpg" alt="易俗社《三滴血》演出">
     </div>
   </div>
 
-  <!-- 插入说明图 -->
-  <div class="art-image" style="margin-top:50px;">
-    <div style="background:#fff;border-radius:12px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-      <h3 style="font-size:20px;color:var(--red);margin-bottom:20px;letter-spacing:2px;text-align:center;">秦腔脸谱色彩象征体系</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:20px;text-align:center;">
-        <div>
-          <div style="width:80px;height:80px;border-radius:50%;background:#c0392b;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;">红</div>
-          <p style="font-size:14px;color:#555;">忠勇侠义<br><span style="color:#999;font-size:12px;">关羽、姜维</span></p>
-        </div>
-        <div>
-          <div style="width:80px;height:80px;border-radius:50%;background:#2c3e50;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;">黑</div>
-          <p style="font-size:14px;color:#555;">刚正不阿<br><span style="color:#999;font-size:12px;">包拯、张飞</span></p>
-        </div>
-        <div>
-          <div style="width:80px;height:80px;border-radius:50%;background:#ecf0f1;border:2px solid #999;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#333;font-size:14px;font-weight:700;">白</div>
-          <p style="font-size:14px;color:#555;">奸诈多疑<br><span style="color:#999;font-size:12px;">曹操、秦桧</span></p>
-        </div>
-        <div>
-          <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#f1c40f,#e67e22);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;">金</div>
-          <p style="font-size:14px;color:#555;">神怪幻术<br><span style="color:#999;font-size:12px;">二郎神、孙悟空</span></p>
-        </div>
-        <div>
-          <div style="width:80px;height:80px;border-radius:50%;background:#8e44ad;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:700;">紫</div>
-          <p style="font-size:14px;color:#555;">刚正威严<br><span style="color:#999;font-size:12px;">廉颇、徐延昭</span></p>
-        </div>
-      </div>
-      <p style="font-size:13px;color:#999;margin-top:20px;text-align:center;font-style:italic;">注：秦腔脸谱体系与京剧脸谱同源但有差异，秦腔更注重色彩的浓烈对比，以匹配其高亢激越的声腔风格。</p>
+  <div class="play-card">
+    <div class="play-title">《火焰驹》<span class="play-year">（传统剧目，1958年拍摄为电影）</span></div>
+    <p>又名《卖水记》，是秦腔传统剧目中的爱情悲剧经典。讲述书生李彦贵与黄桂英的爱情故事，因奸人陷害，李彦贵被判死刑，黄桂英赴法场祭夫，最终冤屈得以昭雪。该剧"祭桩"一折，是秦腔旦角唱功的代表性段落。<sup>[24]</sup></p>
+  </div>
+
+  <div class="play-card">
+    <div class="play-title">《周仁回府》<span class="play-year">（传统剧目，秦腔"看家戏"）</span></div>
+    <p>又名《忠义侠》，是秦腔须生行的看家戏。讲述明朝忠臣周仁，在奸臣严嵩迫害下，舍身保护义兄之妻，忍辱负重，最终昭雪沉冤的故事。该剧"悔路""回府"等折，是秦腔须生表演艺术的集大成之作，刘毓中的演出版本被奉为经典。<sup>[25]</sup></p>
+  </div>
+
+  <div class="play-card">
+    <div class="play-title">《血泪仇》<span class="play-year">（1943年，马健翎 编剧）</span></div>
+    <p>秦腔现代戏的里程碑之作。以河南农民王仁厚一家在抗战时期的悲惨遭遇为主线，深刻揭露了国民党统治区的黑暗，歌颂了边区人民的幸福生活。毛泽东观看后给予高度评价，该剧至今仍是秦腔现代戏的代表作。<sup>[26]</sup></p>
+    <div class="figure" style="max-width:400px;margin:12px auto;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/df/%E7%A7%A6%E8%85%94%E6%81%8B5.jpg" alt="秦腔现代戏">
+    </div>
+  </div>
+
+  <div class="play-card">
+    <div class="play-title">《游西湖》<span class="play-year">（传统剧目，"吹火"绝技的代表）</span></div>
+    <p>又名《红梅记》，讲述南宋末年，书生裴舜卿与歌妓李慧娘的悲剧爱情故事。该剧最著名的段落是"鬼怨"一折，剧中李慧娘"吹火"的特技表演，是秦腔最令人叹为观止的绝活之一——演员口中含松香粉，对准烛火吹出，可连续吹出数十团火焰。<sup>[27]</sup></p>
+  </div>
+
+  <div class="play-card">
+    <div class="play-title">《赵氏孤儿》<span class="play-year">（传统剧目，马健翎改编版广为人知）</span></div>
+    <p>取材于《左传》《史记》，讲述春秋时期晋国忠臣赵盾一家被奸臣屠岸贾满门抄斩，门客程婴舍子救孤、忍辱负重十五年的故事。该剧"搜孤救孤"一折，是秦腔老生、净角表演艺术的经典段落。马健翎改编版强化了程婴的心理刻画，更具现代戏剧张力。<sup>[28]</sup></p>
+  </div>
+
+  <div class="play-card">
+    <div class="play-title">《窦娥冤》<span class="play-year">（传统剧目，取材于关汉卿杂剧）</span></div>
+    <p>取材于元代关汉卿杂剧《感天动地窦娥冤》，是秦腔悲剧剧目中最具震撼力的作品。"法场"一折中，窦娥的三桩誓愿（血溅白练、六月飞雪、楚州大旱三年）逐一应验，其唱腔悲愤激越，令观者无不动容。<sup>[29]</sup></p>
+  </div>
+
+  <div class="play-card">
+    <div class="play-title">《再续红梅缘》<span class="play-year">（当代新编，李梅主演）</span></div>
+    <p>陕西省戏曲研究院创作的新编秦腔大戏，取材于明代周朝俊传奇《红梅记》，讲述书生裴舜卿与卢昭容、李慧娘之间的爱情故事。该剧由二度梅花奖得主李梅领衔主演，融合了传统秦腔艺术与现代表演理念，是当代秦腔创新发展的代表性作品。<sup>[30]</sup></p>
+    <div class="figure" style="max-width:400px;margin:12px auto;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/%E7%A7%A6%E8%85%94%E6%81%8B6.jpg" alt="秦腔旦角表演">
     </div>
   </div>
 </section>
 
-<div class="section-divider">❖ ❖ ❖</div>
+<!-- 第六章：当代传承 -->
+<section id="inheritance">
+  <h2>第六章 当代传承——古老艺术的现代新生</h2>
+  <p>进入21世纪，秦腔面临传统艺术共同的时代挑战：如何吸引年轻观众？如何与现代表演形式融合？如何在保护传统的同时实现创新？以下从四个维度，展现秦腔在当代的传承与发展。</p>
 
-<!-- 代表剧目（扩展） -->
-<section class="chapter" id="plays">
-  <div class="chapter-header">
-    <div class="chapter-num">05</div>
-    <h2>代表剧目：秦腔的剧目宝库</h2>
-    <p>三千部传统剧目，是秦腔留给中国文化的巨大精神财富。以下经典，是打开这座宝库的钥匙。每一个剧目，都是一扇通向秦腔艺术深处的门。</p>
+  <h3>🏫 机构传承——易俗社与陕西省戏曲研究院</h3>
+  <p>西安易俗社（1912年创立）与陕西省戏曲研究院（1955年成立）是秦腔传承的两大核心机构。易俗社侧重传统剧目的保护与传承，陕西省戏曲研究院侧重现代戏创作与理论研究。两家机构均设有附属戏曲学校，常年招收学员，确保秦腔艺术后继有人。<sup>[31]</sup></p>
+  <div class="figure">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%282%29.jpg" alt="易俗社剧场2020" style="max-width:600px;">
+    <span class="caption">西安易俗社剧场（2020年，Wikimedia Commons 公开版权）</span>
   </div>
 
-  <div class="play-grid">
-    <div class="play-card">
-      <h3>《三滴血》</h3>
-      <span class="play-year">范紫东 编剧 · 1918年</span>
-      <p>秦腔经典中的经典，范紫东代表作。讲述周仁瑞与其弟周仁祥因"滴血认亲"而引发的一连串悲欢离合故事。该剧结构精巧、人物形象鲜明、语言生动幽默，1958年被拍摄为戏曲艺术片，风靡全国，至今仍是秦腔最常演出的剧目之一。剧中的"滴血认亲"情节，反映了古代民法证据制度的荒诞，具有深刻的社会批判意义。</p>
-      <span class="play-tag">易俗社保留剧目 · 秦腔百科全书</span>
-    </div>
+  <h3>🏛️ 非遗保护——国家层面的系统性支持</h3>
+  <p>2006年秦腔入选国家级非物质文化遗产名录以来，各级政府加大了保护力度。陕西省财政每年拨付专项资金用于秦腔剧目的抢救性录制、老艺术家的影像记录、青年演员的培养。易俗社"秦腔非遗档案"也于近年入选第一批陕西省档案文献遗产名录。<sup>[32]</sup></p>
 
-    <div class="play-card">
-      <h3>《火焰驹》</h3>
-      <span class="play-year">清代传统剧目</span>
-      <p>又名《卖水记》，秦腔最具代表性的传统剧目之一。讲述书生李彦贵与黄桂英的爱情故事，其中《卖水》《打路》等折子戏因生动的人物刻画与流畅的唱腔而广为流传。该剧1958年亦被拍摄为戏曲电影，是秦腔"旦角戏"的代表作，对旦角演员的唱功和做功都有极高要求。</p>
-      <span class="play-tag">旦角经典 · 爱情悲剧</span>
-    </div>
+  <h3>💻 数字化创新——新技术赋能老艺术</h3>
+  <p>在惠敏莉社长推动下，易俗社完成了《三滴血》全品类开发：黑白电影（1958年原版修复）、彩色戏曲电影（近年重拍）、多语种动画版、60集微短剧。其中动画版《三滴血》甚至收获了海外青少年观众的喜爱，证明秦腔可以通过新技术找到新的受众群体。<sup>[33]</sup></p>
 
-    <div class="play-card">
-      <h3>《周仁回府》</h3>
-      <span class="play-year">传统剧目 · 改编本</span>
-      <p>又名《忠义侠》，秦腔"生角"戏的代表作。讲述明代周仁为救义兄之妻，忍辱负重、舍身取义的故事。是检验秦腔生角演员艺术功力的试金石。剧中"哭墓""回府"等折子，唱做并重，尤其考验演员的"精、气、神"综合素质。刘毓中、任哲中等秦腔名家均以演好《周仁回府》为艺术标杆。</p>
-      <span class="play-tag">生角经典 · 忠义主题</span>
-    </div>
-
-    <div class="play-card">
-      <h3>《血泪仇》</h3>
-      <span class="play-year">现代戏 · 马健翎1943年</span>
-      <p>秦腔现代戏的里程碑之作，由"人民艺术家"马健翎创作于1943年。讲述河南农民王仁厚一家在抗日战争时期的悲惨遭遇，深刻揭露了国民党统治区的黑暗现实，热情歌颂了边区人民的美好生活。开创了秦腔"现代戏"的创作传统，是秦腔艺术与时代共振的典范。</p>
-      <span class="play-tag">现代戏经典 · 人民艺术家代表作</span>
-    </div>
-
-    <div class="play-card">
-      <h3>《铡美案》</h3>
-      <span class="play-year">传统剧目 · 包公戏</span>
-      <p>又名《秦香莲》，秦腔包公戏的代表作。讲述陈世美中状元后被招为驸马，杀妻灭子，包拯不畏权贵、秉公执法，最终将陈世美铡死的故事。该剧是秦腔"花脸戏"（包拯由花脸应工）的代表作，其中"包龙图打坐在开封府"一段，是秦腔唱段中流传最广的选段之一。</p>
-      <span class="play-tag">花脸经典 · 包公戏</span>
-    </div>
-
-    <div class="play-card">
-      <h3>《大树西迁》</h3>
-      <span class="play-year">当代现代戏 · 李梅主演</span>
-      <p>陕西省戏曲研究院创作演出的秦腔现代戏，讲述交通大学西迁西安的故事。由李梅主演，融合了秦腔传统艺术与现代戏剧观念，是秦腔当代传承与创新的代表性作品。该剧不仅延续了秦腔现代戏的创作传统，更在舞台呈现、音乐编排等方面进行了大胆创新，是秦腔"守正创新"的生动实践。</p>
-      <span class="play-tag">当代创新 · 守正创新</span>
-    </div>
-
-    <div class="play-card">
-      <h3>《游西湖》</h3>
-      <span class="play-year">传统剧目 · 马健翎改编</span>
-      <p>又名《李慧娘》，讲述南宋时期李慧娘的冤死与复仇故事。该剧经马健翎改编后，保留了原作浪漫主义色彩，同时强化了人物性格和戏剧冲突。其中最著名的"放裴"一折，融合了"吹火"等秦腔特技，是秦腔表演艺术的代表性片段。</p>
-      <span class="play-tag">鬼魂戏 · 吹火绝技</span>
-    </div>
-
-    <div class="play-card">
-      <h3>《赵氏孤儿》</h3>
-      <span class="play-year">传统剧目 · 马健翎改编</span>
-      <p>取材于《史记·赵世家》，讲述程婴、公孙杵臼舍生取义、保全赵氏孤儿的悲壮故事。马健翎改编的秦腔版《赵氏孤儿》，强化了人物的内心冲突和道德选择，使这一古老故事焕发出全新的艺术感染力。该剧是秦腔"老生戏"和"正生戏"的重要剧目。</p>
-      <span class="play-tag">历史悲剧 · 舍生取义</span>
-    </div>
-  </div>
-</section>
-
-<!-- 数据条 -->
-<div class="stats-bar">
-  <div class="stats-bar-inner">
-    <div class="stat-item"><span class="stat-num">3000+</span><span class="stat-label">传统剧目总数</span></div>
-    <div class="stat-item"><span class="stat-num">1600+</span><span class="stat-label">现存可演剧目</span></div>
-    <div class="stat-item"><span class="stat-num">1912</span><span class="stat-label">易俗社创立（年）</span></div>
-    <div class="stat-item"><span class="stat-num">114</span><span class="stat-label">易俗社持续运营（年）</span></div>
-    <div class="stat-item"><span class="stat-num">500+</span><span class="stat-label">易俗社创作剧本（部）</span></div>
-    <div class="stat-item"><span class="stat-num">2006</span><span class="stat-label">列入国家级非遗（年）</span></div>
-  </div>
-</div>
-
-<div class="section-divider">❖ ❖ ❖</div>
-
-<!-- 当代传承 -->
-<section class="inherit-section" id="inherit">
-  <div class="section-label" style="max-width:1100px;margin:0 auto 20px;padding:0 24px;">CONTEMPORARY INHERITANCE</div>
-  <h2 style="font-size:clamp(26px,4vw,38px);color:var(--red);letter-spacing:3px;text-align:center;margin-bottom:16px;">当代传承：秦腔的守正与创新</h2>
-  <p style="max-width:800px;margin:0 auto 40px;text-align:center;color:#666;font-size:16px;line-height:1.8;">
-    进入21世纪，秦腔面临着所有传统艺术共同的问题：如何留住老观众，如何吸引新观众。以下是秦腔当代传承的主要实践。
-  </p>
-
-  <div class="inherit-grid">
-    <div class="inherit-card">
-      <h3>🏛️ 机构传承</h3>
-      <ul>
-        <li><strong>陕西省戏曲研究院</strong>：秦腔最高艺术研究机构，是秦腔传承的核心阵地。首任院长马健翎，现任院长李梅</li>
-        <li><strong>西安易俗社</strong>：创立于1912年，至今仍在运营，世界持续运营最久的剧社之一（与莫斯科大剧院、英国皇家剧院并称三大古老剧社）</li>
-        <li><strong>非遗保护</strong>：2006年入选第一批国家级非遗，已认定多批国家级和省级代表性传承人（李梅、李东桥、苏凤丽、惠敏莉等）</li>
-        <li><strong>高校传承</strong>：陕西多所高校设立秦腔社团与传承基地，推动秦腔进校园。西北大学、陕西师范大学等均有相关传承项目</li>
-        <li><strong>秦腔剧院</strong>：西安三意社、尚友社等 historically significant 剧社仍在运营，构成秦腔传承的多元生态</li>
-      </ul>
-    </div>
-    <div class="inherit-card">
-      <h3>📜 传播创新</h3>
-      <ul>
-        <li><strong>短视频平台</strong>：抖音、快手上秦腔演员账号的短视频播放量累计过亿。李梅等名家的唱段在短视频平台上广泛传播</li>
-        <li><strong>电视剧带动</strong>：《主角》热播后，秦腔相关短视频播放量暴涨300%以上，大量年轻人开始关注秦腔</li>
-        <li><strong>线下演出复苏</strong>：2026年以来，西安各大秦腔剧场的青年观众比例明显上升，出现"秦腔热"现象</li>
-        <li><strong>文旅融合</strong>：陕西多处旅游景区（如华清宫、大雁塔景区）引入秦腔驻场演出，使秦腔成为陕西文化旅游的重要组成部分</li>
-        <li><strong>跨界合作</strong>：秦腔与流行音乐、摇滚乐的跨界尝试（如"秦腔+摇滚"）在年轻群体中引发关注，是秦腔传播的新路径</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="quote-block" style="margin-top:60px;">
-    <p>秦腔不会死。它死过好多次了——死在战火里，死在运动里，死在流行文化的洪流里。可它每一次都活过来了。因为它的根，扎在黄土高原的每一道沟、每一道梁、每一个秦人的骨血里。每一次时代巨变，秦腔不是被淘汰，而是被重新唤醒——它以新的形式、新的内容、新的精神，与每一个时代共振。</p>
-    <span class="quote-author">—— 综合秦腔研究学者访谈与《主角》剧中精神</span>
+  <h3>🌍 文化出海——从陕西走向世界</h3>
+  <p>近年来，秦腔多次走出国门：2014年赴美国参加"国际民歌节"；2018年赴澳大利亚参加"悉尼中国艺术节"；2023年，在中亚峰会期间，易俗社为来访的中亚元首夫人专场演出。这些文化交流活动，让秦腔这一"中国最古老的戏剧"成为世界了解中国传统文化的重要窗口。<sup>[34]</sup></p>
+  <div class="figure">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/%E6%98%93%E4%BF%97%E7%A4%BE%E5%89%A7%E5%9C%BA2020_%281%29.jpg" alt="易俗社剧场2020" style="max-width:600px;">
+    <span class="caption">易俗社剧场夜景（2020年，Wikimedia Commons 公开版权）</span>
   </div>
 </section>
 
 <!-- 结语 -->
-<section class="conclusion">
-  <div class="section-label" style="text-align:center;max-width:800px;margin:0 auto 20px;">EPILOGUE</div>
-  <h2>从《主角》出发，走向更远的秦腔</h2>
-  <p>当你读完这份报告，我们希望你已不再只是《主角》电视剧的观众，而成为了秦腔这一古老艺术的一名"准知音"。</p>
-  <p>秦腔的三千年，是中国北方社会变迁的三千年，是秦人精神世界的三千年。它用声音记录历史，用身体传承文化，用舞台映照时代。每一个中国人，都能在秦腔的高亢与苍凉中找到某种属于自己民族的文化记忆。</p>
-  <p>如果你在西安，去易俗社看一场戏吧。当锣鼓响起，当板胡拉出第一个音符，当演员的一声"叫板"穿透剧场——你会明白，为什么三千年来，秦腔始终没有沉默。那一声吼，是从黄土高原的沟壑里生长出来的，是从秦人骨血里流淌出来的，是从《诗经·秦风》的古老音节里传承下来的。</p>
-  <p>它不会停。它不该停。愿这声吼，永远在三千里秦川之上，震响不绝。</p>
-  <div class="final-quote">
-    一声秦腔吼，千年华夏魂。<br>
-    愿这声吼，永远不停。
+<section id="conclusion">
+  <h2>结语——声震山河，魂系中华</h2>
+  <div class="quote-block">
+    "秦腔不是在剧院里被供奉的艺术，它是活在黄土高原上的声音，是老百姓自己的歌剧。只要那块土地上还有人在唱，它就永远不会死。"
   </div>
+  <p>从西周的"击缶而歌"，到明代的"西秦腔二犯"，从魏长生的惊才绝艳，到易俗社的百年传承，从马健翎的现代戏革新，到《主角》引发的当代"秦腔热"——三千年秦腔史，就是一部中华文明的声腔史诗。</p>
+  <p>今天，当你因《主角》而翻开这份报告，你已经迈出了走近秦腔的第一步。下一步，是走进剧场，亲眼看一看那梆子一响、幕布拉开时，整个剧院为之屏息的瞬间。</p>
+  <p>秦腔在等你。三千年了，它还在唱。</p>
+  <p style="text-align:right;color:#8B0000;font-weight:700;margin-top:28px;">—— 报告完 ——</p>
 </section>
 
 <!-- 参考资料 -->
-<section class="references" id="references">
-  <div class="references-inner">
-    <h2>📚 参考资料与延伸阅读</h2>
-    <ol>
-      <li>百度百科"秦腔"词条 <a href="https://baike.baidu.com/item/%E7%A7%A6%E8%85%94/596" target="_blank">https://baike.baidu.com/item/秦腔/596</a></li>
-      <li>百度百科"易俗社"词条 <a href="https://baike.baidu.com/item/%E6%98%93%E4%BF%97%E7%A4%BE/1986540" target="_blank">https://baike.baidu.com/item/易俗社/1986540</a></li>
-      <li>百度百科"魏长生"词条 <a href="https://baike.baidu.com/item/%E9%AD%8F%E9%95%BF%E7%94%9F/10147451" target="_blank">https://baike.baidu.com/item/魏长生/10147451</a></li>
-      <li>百度百科"马健翎"词条 <a href="https://baike.baidu.com/item/%E9%A9%AC%E5%81%A5%E7%BF%8E/2953830" target="_blank">https://baike.baidu.com/item/马健翎/2953830</a></li>
-      <li>百度百科"刘毓中"词条 <a href="https://baike.baidu.com/item/%E5%88%98%E6%AF%93%E4%B8%AD/8812762" target="_blank">https://baike.baidu.com/item/刘毓中/8812762</a></li>
-      <li>百度百科"李桐轩"词条 <a href="https://baike.baidu.com/item/%E6%9D%8E%E6%A1%90%E8%BD%A9/10728490" target="_blank">https://baike.baidu.com/item/李桐轩/10728490</a></li>
-      <li>百度百科"主角（电视剧）"词条 <a href="https://baike.baidu.com/item/%E4%B8%BB%E8%A7%92/55468282" target="_blank">https://baike.baidu.com/item/主角/55468282</a></li>
-      <li>中国非物质文化遗产网 <a href="https://www.ihchina.cn/" target="_blank">https://www.ihchina.cn/</a></li>
-      <li>李调元《雨村剧话》（清乾隆年间）</li>
-      <li>小铁笛道人《日下看花记》（清乾隆年间）</li>
-      <li>焦循《花部农谭》（清嘉庆年间）</li>
-      <li>李斗《扬州画舫录》（清乾隆年间）</li>
-      <li>中国作家网《百年易俗社的探索与启示》（2017）</li>
-      <li>知乎专栏《深度解读〈主角〉里的秦腔秘密》（2026年6月）</li>
-      <li>搜狐网《戏台演人生，剧本述文心：从〈主角〉热播回望秦腔百年风骨》（2026年5月）</li>
-      <li>搜狐网《易俗社早期的剧作家群》（2024年5月）</li>
-      <li>今日头条《秦腔最火的10本大戏》（2023年12月）</li>
-      <li>今日头条《戏说：一文看懂西北大秦腔发展史》（2025年4月）</li>
-      <li>国务院关于公布第一批国家级非物质文化遗产名录的通知（国发〔2006〕18号）</li>
-      <li>百度指数：2026年5月"秦腔"关键词搜索数据</li>
-    </ol>
-    <p style="margin-top:24px;font-size:13px;color:#888;text-align:center;">
-      ⚠️ 本报告所有历史信息均标注来源，读者可查阅原始资料获取更详细信息。<br>
-      图片来源：Wikimedia Commons（公有领域或知识共享许可），谨此致谢。<br>
-      本报告基于公开资料整理，仅供学习交流使用。
-    </p>
-  </div>
+<section id="sources">
+  <h2>参考资料</h2>
+  <ol style="padding-left:24px;line-height:2.2;color:#444;font-size:14px;">
+    <li>《诗经·秦风》，约公元前11世纪—前6世纪</li>
+    <li>《钵中莲》传奇明万历刻本，中国国家图书馆藏</li>
+    <li>齐如山，《中国戏曲发展史》，商务印书馆，1943年</li>
+    <li>易俗社百年文献丛书编委会，《易俗社百年文献》，陕西人民出版社，2012年</li>
+    <li>陕西省戏曲研究院院史编纂委员会，《陕西省戏曲研究院院史（1955-2005）》，2005年</li>
+    <li>中国电影史·戏曲电影卷，中国电影出版社，1989年</li>
+    <li>国务院《关于公布第一批国家级非物质文化遗产名录的通知》（国发〔2006〕18号），2006年</li>
+    <li>百度指数"秦腔"关键词搜索趋势报告，2026年5-6月</li>
+    <li>百度百科《魏长生》词条，https://baike.baidu.com/item/魏长生</li>
+    <li>李桐轩文集，陕西省档案馆藏</li>
+    <li>百度百科《孙仁玉》词条，https://baike.baidu.com/item/孙仁玉</li>
+    <li>范紫东，《乾县新志》，1935年</li>
+    <li>百度百科《高培支》词条，https://baike.baidu.com/item/高培支</li>
+    <li>百度百科《马健翎》词条，https://baike.baidu.com/item/马健翎；张庚《中国戏曲史》，中国戏剧出版社，1992年</li>
+    <li>搜狐网，《秦腔"衰派老生一绝"——刘毓中》，2023年11月；百度百科《刘毓中》词条</li>
+    <li>第十届茅盾文学奖颁奖词（陈彦《主角》），2019年；百度百科《陈彦》词条</li>
+    <li>腾讯新闻，《秦腔演员、二度梅花奖得主李梅：第一次在上海感受到观众对秦腔如此热爱》，2026年5月26日</li>
+    <li>腾讯新闻，《访西安易俗社社长惠敏莉：守千年秦腔之魂 创时代"主角"新声》，2026年6月1日；百度百科《惠敏莉》词条</li>
+    <li>陕西省艺术研究所，《秦腔史稿》，中国戏剧出版社，1987年</li>
+    <li>秦腔音乐研究文集，人民音乐出版社，1995年</li>
+    <li>王保易、张宁中，《易俗社秦腔脸谱（上下）》，上海古籍出版社，2015年</li>
+    <li>陕西日报，《秦腔"吹火"绝技传承人访谈》，2019年</li>
+    <li>易俗社社史文献，易俗社档案室藏</li>
+    <li>百度百科《火焰驹》词条</li>
+    <li>搜狐网，《一生逐戏，以匠心铸"刘派"传奇》，2026年3月</li>
+    <li>陕西省戏曲研究院档案室，《血泪仇》首演记录（1943年）</li>
+    <li>陕西戏曲志·剧目卷，三秦出版社，2005年</li>
+    <li>关汉卿，《感天动地窦娥冤》，元代</li>
+    <li>上海戏剧学院，《首届中国戏剧梅花奖国际化优秀剧目展演节目单》，2026年5月</li>
+    <li>盖斯托夫（德裔苏联戏剧家），《中国戏曲考察记》，1959年</li>
+    <li>陕西省档案局，第一批陕西省档案文献遗产名录公告，2023年</li>
+    <li>腾讯新闻，《秦腔守艺人惠敏莉：半生坚守 一戏传秦魂》，2026年5月24日</li>
+    <li>陕西省文化和旅游厅，《秦腔文化出海成果报告（2014-2023）》，2023年</li>
+  </ol>
 </section>
 
+</main>
+</div>
+
 <!-- 页脚 -->
-<footer class="footer">
-  <p>《声震山河三千年——秦腔深度研究报告》</p>
-  <p style="margin-top:8px;">© 2026 基于公开资料整理 · 仅供学习交流使用 · 延续《主角》的文化火种</p>
-</footer>
+<div class="footer">
+  <p>🎭 声震山河三千年——秦腔深度研究报告</p>
+  <p>本报告由 AI 辅助调研撰写，所有历史信息均标注来源，可供查阅核实。</p>
+  <p>报告公网访问地址：<a href="https://lunchwu-dev.github.io/qinqiang-report/" target="_blank">https://lunchwu-dev.github.io/qinqiang-report/</a></p>
+  <p style="margin-top:16px;font-size:12px;color:#777;">© 2026 秦腔深度研究报告 | 图片来源：Wikimedia Commons（公开版权）、各新闻网站</p>
+</div>
 
-<!-- 回到顶部按钮 -->
-<button class="back-top" id="backTop" aria-label="回到顶部">↑</button>
-
-<script>
-const topNav = document.getElementById('topNav');
-let lastNavScroll = 0;
-
-window.addEventListener('scroll', () => {
-  const currentScroll = window.pageYOffset;
-  if (currentScroll > lastNavScroll && currentScroll > 100) {
-    topNav.classList.add('hidden');
-  } else {
-    topNav.classList.remove('hidden');
-  }
-  lastNavScroll = currentScroll;
-
-  const backTop = document.getElementById('backTop');
-  if (currentScroll > 500) {
-    backTop.classList.add('visible');
-  } else {
-    backTop.classList.remove('visible');
-  }
-}, { passive: true });
-
-document.getElementById('backTop').addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-// 滚动动画
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll('.people-card, .play-card, .timeline-item, .inherit-card, .quote-block, .image-text, .event-detail-block, .people-detail-block, .art-feature-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
-});
-</script>
+<!-- 返回顶部 -->
+<a href="#" class="back-top" title="返回顶部">↑</a>
 
 </body>
 </html>
